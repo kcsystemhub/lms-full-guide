@@ -4,826 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Центр обучения - Руководства и инструкции</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #ffffff 0%, #e3f2fd 50%, #bbdefb 100%);
-            min-height: 100vh;
-            color: #333;
-            overflow-x: hidden;
-        }
-
-        /* Header */
-        .header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 2rem;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .header-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1.5rem;
-        }
-
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .menu-toggle {
-            background: linear-gradient(135deg, #1976d2, #1565c0);
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            padding: 0.8rem;
-            transition: all 0.3s ease;
-            color: white;
-            box-shadow: 0 4px 15px rgba(25, 118, 210, 0.3);
-            position: relative;
-        }
-
-        .menu-toggle:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(25, 118, 210, 0.4);
-        }
-
-        .menu-toggle:active {
-            transform: translateY(0);
-        }
-
-        .hamburger {
-            display: flex;
-            flex-direction: column;
-            width: 20px;
-            height: 14px;
-            justify-content: space-between;
-        }
-
-        .hamburger span {
-            height: 2px;
-            background-color: white;
-            border-radius: 2px;
-            transition: all 0.3s ease;
-        }
-
-        .menu-toggle.active .hamburger span:nth-child(1) {
-            transform: translateY(6px) rotate(45deg);
-        }
-
-        .menu-toggle.active .hamburger span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .menu-toggle.active .hamburger span:nth-child(3) {
-            transform: translateY(-6px) rotate(-45deg);
-        }
-
-        .site-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-            background: linear-gradient(135deg, #1976d2, #1565c0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* Language Selector */
-        .language-selector {
-            position: relative;
-        }
-
-        .language-toggle {
-            background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
-            border: 2px solid rgba(25, 118, 210, 0.2);
-            border-radius: 10px;
-            padding: 0.6rem 1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-weight: 500;
-            color: #1976d2;
-            transition: all 0.3s ease;
-            min-width: 80px;
-            justify-content: space-between;
-        }
-
-        .language-toggle:hover {
-            background: linear-gradient(135deg, #e8f4fd, #d1e9f8);
-            border-color: #1976d2;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(25, 118, 210, 0.2);
-        }
-
-        .language-flag {
-            font-size: 1.2rem;
-        }
-
-        .language-arrow {
-            font-size: 0.8rem;
-            transition: transform 0.3s ease;
-        }
-
-        .language-toggle.active .language-arrow {
-            transform: rotate(180deg);
-        }
-
-        .language-dropdown {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background: white;
-            border: 2px solid rgba(25, 118, 210, 0.2);
-            border-radius: 10px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-            min-width: 160px;
-            z-index: 1001;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.3s ease;
-        }
-
-        .language-dropdown.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .language-option {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            padding: 0.8rem 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-
-        .language-option:first-child {
-            border-radius: 8px 8px 0 0;
-        }
-
-        .language-option:last-child {
-            border-radius: 0 0 8px 8px;
-        }
-
-        .language-option:hover {
-            background: linear-gradient(135deg, #e8f4fd, #d1e9f8);
-            color: #1976d2;
-        }
-
-        .language-option.selected {
-            background: linear-gradient(135deg, #1976d2, #1565c0);
-            color: white;
-        }
-
-        .language-option.selected:hover {
-            background: linear-gradient(135deg, #1565c0, #0d47a1);
-        }
-
-        /* Sidebar */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: -320px;
-            width: 320px;
-            height: 100vh;
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(15px);
-            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
-            transition: left 0.3s ease;
-            z-index: 1100;
-            overflow-y: auto;
-        }
-
-        .sidebar.open {
-            left: 0;
-        }
-
-        .sidebar-header {
-            padding: 2rem 1.5rem 1rem;
-            border-bottom: 1px solid rgba(25, 118, 210, 0.1);
-        }
-
-        .sidebar-title {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #1976d2;
-            margin-bottom: 0.5rem;
-        }
-
-        .sidebar-subtitle {
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        .sidebar-menu {
-            padding: 1rem 0;
-        }
-
-        .menu-section {
-            margin-bottom: 1.5rem;
-        }
-
-        .menu-section-title {
-            padding: 0 1.5rem 0.5rem;
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            color: #666;
-            letter-spacing: 0.5px;
-        }
-
-        .menu-item {
-            display: block;
-            padding: 0.8rem 1.5rem;
-            text-decoration: none;
-            color: #333;
-            transition: all 0.3s ease;
-            border-left: 3px solid transparent;
-            font-weight: 500;
-        }
-
-        .menu-item:hover {
-            background-color: rgba(25, 118, 210, 0.08);
-            border-left-color: #1976d2;
-            color: #1976d2;
-        }
-
-        .menu-item.active {
-            background-color: rgba(25, 118, 210, 0.12);
-            border-left-color: #1976d2;
-            color: #1976d2;
-        }
-
-        /* Overlay */
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 1050;
-        }
-
-        .overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* Tour Overlay */
-        .tour-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 2000;
-            display: none;
-        }
-
-        .tour-overlay.active {
-            display: block;
-        }
-
-        .tour-highlight {
-            position: absolute;
-            border: 3px solid #1976d2;
-            border-radius: 8px;
-            box-shadow: 0 0 0 5px rgba(25, 118, 210, 0.3);
-            pointer-events: none;
-            transition: all 0.3s ease;
-        }
-
-        .tour-dialog {
-            position: absolute;
-            background: white;
-            border-radius: 12px;
-            padding: 1.5rem;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            max-width: 300px;
-            z-index: 2001;
-        }
-
-        .tour-dialog h3 {
-            color: #1976d2;
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
-        }
-
-        .tour-dialog p {
-            color: #666;
-            margin-bottom: 1rem;
-            line-height: 1.5;
-        }
-
-        .tour-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .tour-btn {
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .tour-btn-primary {
-            background: #1976d2;
-            color: white;
-        }
-
-        .tour-btn-primary:hover {
-            background: #1565c0;
-        }
-
-        .tour-btn-secondary {
-            background: #f5f5f5;
-            color: #666;
-        }
-
-        .tour-btn-secondary:hover {
-            background: #e0e0e0;
-        }
-
-        .tour-progress {
-            color: #999;
-            font-size: 0.9rem;
-        }
-
-        /* Main Content */
-        .main-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 2.5rem 1rem;
-            transition: margin-left 0.3s ease;
-        }
-
-        /* Home Page */
-        .hero-section {
-            text-align: center;
-            margin-bottom: 3rem;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 3rem;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        .hero-title {
-            font-size: 3rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #1976d2, #1565c0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-subtitle {
-            font-size: 1.4rem;
-            color: #666;
-            margin-bottom: 2rem;
-        }
-
-        .guides-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-            align-items: start;
-        }
-
-        .guide-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: 2px solid transparent;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            position: relative;
-        }
-
-        .guide-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 25px 50px rgba(25, 118, 210, 0.15);
-            border-color: rgba(25, 118, 210, 0.2);
-        }
-
-        .guide-icon {
-            width: 60px;
-            height: 60px;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #1976d2, #1565c0);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-        }
-
-        .guide-title {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: #1976d2;
-            margin-bottom: 1rem;
-        }
-
-        .guide-description {
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-            flex-grow: 1;
-        }
-
-        .guide-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.9rem;
-            color: #999;
-            margin-top: auto;
-        }
-
-        .guide-category {
-            background: rgba(25, 118, 210, 0.1);
-            color: #1976d2;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-weight: 500;
-        }
-
-        .guide-status {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-
-        .guide-status.viewed {
-            background: #4caf50;
-            color: white;
-        }
-
-        .guide-status.new {
-            background: #ff9800;
-            color: white;
-        }
-
-        /* Guide Page */
-        .guide-page {
-            display: none;
-        }
-
-        .guide-page.active {
-            display: block;
-        }
-
-        .guide-header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            margin-bottom: 2rem;
-        }
-
-        .guide-header h1 {
-            font-size: 2.5rem;
-            font-weight: bold;
-            background: linear-gradient(135deg, #1976d2, #1565c0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
-        }
-
-        .guide-header p {
-            color: #666;
-            font-size: 1.2rem;
-        }
-
-        .back-button {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.8rem 1.5rem;
-            background: linear-gradient(135deg, #1976d2, #1565c0);
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            margin-bottom: 2rem;
-        }
-
-        .back-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(25, 118, 210, 0.3);
-        }
-
-        .back-button .icon {
-            margin-right: 0.5rem;
-        }
-
-        /* Contact Info */
-        .contact-info {
-            background: linear-gradient(135deg, #ffffff, #f8fbff);
-            padding: 2rem;
-            border-radius: 15px;
-            border-left: 4px solid #1976d2;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            text-align: center;
-        }
-
-        .contact-info p {
-            color: #1565c0;
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-
-        .contact-email {
-            color: #0d47a1;
-            font-weight: 700;
-            font-size: 1.3rem;
-        }
-
-        /* Welcome Dialog */
-        .welcome-dialog {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-            max-width: 500px;
-            width: 90%;
-            z-index: 2001;
-            text-align: center;
-            display: none;
-        }
-
-        .welcome-dialog.active {
-            display: block;
-        }
-
-        .welcome-dialog h2 {
-            color: #1976d2;
-            margin-bottom: 1rem;
-            font-size: 1.8rem;
-        }
-
-        .welcome-dialog p {
-            color: #666;
-            margin-bottom: 2rem;
-            line-height: 1.6;
-        }
-
-        .welcome-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .main-content {
-                padding: 1rem;
-            }
-            
-            .hero-section {
-                padding: 2rem 1rem;
-            }
-            
-            .hero-title {
-                font-size: 2rem;
-            }
-            
-            .header-content {
-                padding: 0 1rem;
-                flex-direction: row;
-            }
-
-            .guides-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .sidebar {
-                width: 280px;
-                left: -280px;
-            }
-
-            .tour-dialog {
-                max-width: 250px;
-            }
-
-            .welcome-buttons {
-                flex-direction: column;
-            }
-
-            .language-dropdown {
-                right: auto;
-                left: 0;
-            }
-        }
-        /* Footer Styles */
-.site-footer {
-    background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
-    color: white;
-    margin-top: 4rem;
-    padding: 3rem 0 1rem;
-    font-size: 0.9rem;
-}
-
-.footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
-
-.footer-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-bottom: 2rem;
-}
-
-.footer-section {
-    display: flex;
-    flex-direction: column;
-}
-
-.footer-logo {
-    margin-bottom: 1rem;
-}
-
-.footer-title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: white;
-}
-
-.footer-subtitle {
-    font-size: 1rem;
-    opacity: 0.9;
-    margin: 0;
-}
-
-.footer-section-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: white;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-    padding-bottom: 0.5rem;
-}
-
-.footer-contact {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.footer-contact-label {
-    margin: 0;
-    opacity: 0.9;
-}
-
-.footer-contact-email {
-    color: #ffeb3b;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    font-size: 1rem;
-}
-
-.footer-contact-email:hover {
-    color: #fff59d;
-    text-decoration: underline;
-}
-
-.footer-links {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.footer-link {
-    color: rgba(255, 255, 255, 0.9);
-    text-decoration: none;
-    transition: all 0.3s ease;
-    padding: 0.3rem 0;
-    border-bottom: 1px solid transparent;
-}
-
-.footer-link:hover {
-    color: #ffeb3b;
-    border-bottom-color: rgba(255, 235, 59, 0.3);
-    padding-left: 0.5rem;
-}
-
-.footer-bottom {
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    padding-top: 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-
-.footer-copyright,
-.footer-version {
-    margin: 0;
-    opacity: 0.8;
-    font-size: 0.85rem;
-}
-
-.footer-version {
-    font-style: italic;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .site-footer {
-        padding: 2rem 0 1rem;
-    }
-    
-    .footer-container {
-        padding: 0 1rem;
-    }
-    
-    .footer-content {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-    
-    .footer-bottom {
-        flex-direction: column;
-        text-align: center;
-        gap: 0.5rem;
-    }
-    
-    .footer-title {
-        font-size: 1.3rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .footer-links {
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 1rem;
-    }
-    
-    .footer-link {
-        flex: 1;
-        min-width: 120px;
-    }
-}
-    </style>
+    <link rel="stylesheet" href="assets/index.css">
 </head>
 <body>
     <!-- Welcome Dialog -->
@@ -934,22 +115,22 @@
             <a href="groups.html" class="menu-item" data-translate="menu.manageGroups">
                 Управление группами
             </a>
-            <a href="#" class="menu-item" onclick="showGuide('manage-courses')" data-translate="menu.manageCourses">
+            <a href="course-editing.html" class="menu-item" data-translate="menu.manageCourses">
                 Управление курсами
             </a>
         </div>
         <div class="menu-section">
             <div class="menu-section-title" data-translate="menu.reporting">Отчетность</div>
-            <a href="#" class="menu-item" onclick="showGuide('export-report')" data-translate="menu.exportReport">
+            <a href="https://sherxanexe.github.io/lms-old-reports/" class="menu-item" target="_blank" rel="noopener noreferrer" data-translate="menu.exportReport">
                 Как выгрузить отчет
             </a>
-            <a href="#" class="menu-item" onclick="showGuide('new-reports')" data-translate="menu.newReports">
+            <a href="course-editing.html" class="menu-item" data-translate="menu.newReports">
                 Новые отчеты
             </a>
-            <a href="#" class="menu-item" onclick="showGuide('certificates')" data-translate="menu.certificates">
+            <a href="course-editing.html" class="menu-item" data-translate="menu.certificates">
                 Сертификаты
             </a>
-            <a href="#" class="menu-item" onclick="showGuide('faq')" data-translate="menu.faq">
+            <a href="course-editing.html" class="menu-item" data-translate="menu.faq">
                 FAQ / Частые вопросы
             </a>
         </div>
@@ -1009,18 +190,16 @@
                     </div>
                 </div>
 
-                <a href="https://sherxanexe.github.io/notif-full-guide/" class="guide-card-link" style="text-decoration: none; color: inherit;" target="_blank">
-    <div class="guide-card" data-guide="create-notification">
-        <div class="guide-status viewed" data-translate-title="status.new" title="Просмотрено">✓</div>
-        <div class="guide-icon">🔔</div>
-        <h3 class="guide-title" data-translate="guides.createNotification.title">Как создать уведомление</h3>
-        <p class="guide-description" data-translate="guides.createNotification.description">Руководство по созданию и отправке уведомлений участникам обучения.</p>
-        <div class="guide-meta">
-            <span class="guide-category" data-translate="categories.communications">Коммуникации</span>
-            <span data-translate="reading.time10">10 мин чтения</span>
-        </div>
-    </div>
-</a>
+                <div class="guide-card" onclick="showGuide('create-notification')" data-guide="create-notification">
+                    <div class="guide-status new" data-translate-title="status.new">●</div>
+                    <div class="guide-icon">🔔</div>
+                    <h3 class="guide-title" data-translate="guides.createNotification.title">Как создать уведомление</h3>
+                    <p class="guide-description" data-translate="guides.createNotification.description">Руководство по созданию и отправке уведомлений участникам обучения.</p>
+                    <div class="guide-meta">
+                        <span class="guide-category" data-translate="categories.communications">Коммуникации</span>
+                        <span data-translate="reading.time10">10 мин чтения</span>
+                    </div>
+                </div>
 
                 <a
   class="guide-card"
@@ -1028,7 +207,7 @@
   target="_blank"
   rel="noopener noreferrer"
   data-guide="export-report"
-  style="text-decoration: none; color: inherit;"
+ 
 >
   <div class="guide-status new" data-translate-title="status.new">●</div>
   <div class="guide-icon">📊</div>
@@ -1049,7 +228,7 @@
   </div>
 </a>
 
-                <a href="enrollment.html" class="guide-card-link" style="text-decoration: none; color: inherit;">
+                <a href="enrollment.html" class="guide-card-link">
                     <div class="guide-card" data-guide="enroll-participants">
                         <div class="guide-status viewed" data-translate-title="status.new" title="Просмотрено">✓</div>
                         <div class="guide-icon">👥</div>
@@ -1062,7 +241,7 @@
                     </div>
                 </a>
 
-                <a href="groups.html" class="guide-card" data-guide="manage-groups" style="text-decoration: none; color: inherit;">
+                <a href="groups.html" class="guide-card" data-guide="manage-groups">
                     <div class="guide-status viewed" data-translate-title="status.new" title="Просмотрено">✓</div>
                     <div class="guide-icon">🏷️</div>
                     <h3 class="guide-title" data-translate="guides.manageGroups.title">Управление группами</h3>
@@ -1073,7 +252,7 @@
                     </div>
                 </a>
 
-                <div class="guide-card" onclick="showGuide('manage-courses')" data-guide="manage-courses">
+                <a href="course-editing.html" class="guide-card" data-guide="manage-courses">
                     <div class="guide-status new" data-translate-title="status.new">●</div>
                     <div class="guide-icon">⚙️</div>
                     <h3 class="guide-title" data-translate="guides.manageCourses.title">Управление курсами</h3>
@@ -1082,9 +261,9 @@
                         <span class="guide-category" data-translate="categories.management">Управление</span>
                         <span data-translate="reading.time20">20 мин чтения</span>
                     </div>
-                </div>
+                </a>
 
-                <div class="guide-card" onclick="showGuide('new-reports')" data-guide="new-reports">
+                <a href="course-editing.html" class="guide-card" data-guide="new-reports">
                     <div class="guide-status new" data-translate-title="status.new">●</div>
                     <div class="guide-icon">📈</div>
                     <h3 class="guide-title" data-translate="guides.newReports.title">Новые отчеты</h3>
@@ -1093,9 +272,9 @@
                         <span class="guide-category" data-translate="categories.reports">Отчеты</span>
                         <span data-translate="reading.time15">15 мин чтения</span>
                     </div>
-                </div>
+                </a>
 
-                <div class="guide-card" onclick="showGuide('certificates')" data-guide="certificates">
+                <a href="course-editing.html" class="guide-card" data-guide="certificates">
                     <div class="guide-status new" data-translate-title="status.new">●</div>
                     <div class="guide-icon">🏆</div>
                     <h3 class="guide-title" data-translate="guides.certificates.title">Сертификаты</h3>
@@ -1104,9 +283,9 @@
                         <span class="guide-category" data-translate="categories.certification">Сертификация</span>
                         <span data-translate="reading.time18">18 мин чтения</span>
                     </div>
-                </div>
+                </a>
 
-                <div class="guide-card" onclick="showGuide('faq')" data-guide="faq">
+                <a href="course-editing.html" class="guide-card" data-guide="faq">
                     <div class="guide-status new" data-translate-title="status.new">●</div>
                     <div class="guide-icon">❓</div>
                     <h3 class="guide-title" data-translate="guides.faq.title">FAQ / Частые вопросы</h3>
@@ -1115,7 +294,7 @@
                         <span class="guide-category" data-translate="categories.support">Поддержка</span>
                         <span data-translate="reading.time25">25 мин чтения</span>
                     </div>
-                </div>
+                </a>
             </div>
 
             <div class="contact-info" id="contact-info">
@@ -1136,70 +315,70 @@
             </div>
 
             <!-- Основное содержание гайда -->
-            <div style="background: rgba(255, 255, 255, 0.95); padding: 2rem; border-radius: 15px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); margin-bottom: 2rem;">
-                <p style="color: #666; line-height: 1.8; font-size: 1.1rem; margin-bottom: 2rem;">
+            <div class="guide-content-panel">
+                <p class="guide-intro">
                     Если вам необходимо зайти как сотрудник, следуйте ниже указанным пунктам:
                 </p>
 
                 <!-- Шаг 1 -->
-                <div style="border-left: 4px solid #1976d2; background: rgba(25, 118, 210, 0.05); padding: 1.5rem; margin-bottom: 2rem; border-radius: 0 8px 8px 0;">
-                    <h3 style="color: #1976d2; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                        <span style="background: #1976d2; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: bold;">1</span>
+                <div class="guide-step-block">
+                    <h3 class="guide-step-title-row">
+                        <span class="guide-step-number">1</span>
                         Введите в адресной строке браузера lms.airastana.com
                     </h3>
-                    <div style="background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 6px; padding: 1rem; font-family: 'Courier New', monospace; font-size: 1.1rem; color: #1976d2; font-weight: bold; text-align: center; margin-bottom: 1rem;">
+                    <div class="guide-code-display">
                         lms.airastana.com
                     </div>
                 </div>
 
                 <!-- Шаг 2 -->
-                <div style="border-left: 4px solid #1976d2; background: rgba(25, 118, 210, 0.05); padding: 1.5rem; margin-bottom: 2rem; border-radius: 0 8px 8px 0;">
-                    <h3 style="color: #1976d2; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                        <span style="background: #1976d2; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: bold;">2</span>
+                <div class="guide-step-block">
+                    <h3 class="guide-step-title-row">
+                        <span class="guide-step-number">2</span>
                         Вы можете переключить язык интерфейса в верхнем правом углу
                     </h3>
-                    <div style="background: #f0f8ff; border: 1px solid #1976d2; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;">
-                        <p style="margin: 0 0 10px 0; color: #1976d2; font-weight: 500;">📷 Выбор языка интерфейса</p>
-                        <img src="images/lms-language-selection.png" alt="Выбор языка интерфейса" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div class="guide-screenshot-frame">
+                        <p class="guide-screenshot-caption">📷 Выбор языка интерфейса</p>
+                        <img loading="lazy" decoding="async" src="images/lms-language-selection.png" alt="Выбор языка интерфейса" class="guide-image">
                     </div>
                 </div>
 
                 <!-- Шаг 3 -->
-                <div style="border-left: 4px solid #1976d2; background: rgba(25, 118, 210, 0.05); padding: 1.5rem; margin-bottom: 2rem; border-radius: 0 8px 8px 0;">
-                    <h3 style="color: #1976d2; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                        <span style="background: #1976d2; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: bold;">3</span>
+                <div class="guide-step-block">
+                    <h3 class="guide-step-title-row">
+                        <span class="guide-step-number">3</span>
                         Нажмите кнопку "Войти как сотрудник"
                     </h3>
-                    <p style="color: #666; line-height: 1.6; margin-bottom: 1rem;">
+                    <p class="guide-text">
                         Система переадресует вас на страницу входа для сотрудников.
                     </p>
-                    <div style="background: #f0f8ff; border: 1px solid #1976d2; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;">
-                        <p style="margin: 0 0 10px 0; color: #1976d2; font-weight: 500;">📷 Кнопка "Войти как сотрудник"</p>
-                        <img src="images/lms-employee-login-button.png" alt="Кнопка Войти как сотрудник" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div class="guide-screenshot-frame">
+                        <p class="guide-screenshot-caption">📷 Кнопка "Войти как сотрудник"</p>
+                        <img loading="lazy" decoding="async" src="images/lms-employee-login-button.png" alt="Кнопка Войти как сотрудник" class="guide-image">
                     </div>
                 </div>
 
                 <!-- Шаг 4 -->
-                <div style="border-left: 4px solid #1976d2; background: rgba(25, 118, 210, 0.05); padding: 1.5rem; margin-bottom: 2rem; border-radius: 0 8px 8px 0;">
-                    <h3 style="color: #1976d2; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                        <span style="background: #1976d2; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: bold;">4</span>
+                <div class="guide-step-block">
+                    <h3 class="guide-step-title-row">
+                        <span class="guide-step-number">4</span>
                         Введите корпоративный логин и пароль
                     </h3>
-                    <p style="color: #666; line-height: 1.6; margin-bottom: 1rem;">
+                    <p class="guide-text">
                         (такой, как вводите при включении компьютера, или открытии почты через owa.airastana.com)
                     </p>
-                    <div style="background: #f0f8ff; border: 1px solid #1976d2; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;">
-                        <p style="margin: 0 0 10px 0; color: #1976d2; font-weight: 500;">📷 Форма входа Air Astana JSC</p>
-                        <img src="images/lms-airastana-login-form.png" alt="Форма входа Air Astana JSC" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div class="guide-screenshot-frame">
+                        <p class="guide-screenshot-caption">📷 Форма входа Air Astana JSC</p>
+                        <img loading="lazy" decoding="async" src="images/lms-airastana-login-form.png" alt="Форма входа Air Astana JSC" class="guide-image">
                     </div>
                 </div>
 
                 <!-- Дополнительная информация -->
-                <div style="background: rgba(255, 193, 7, 0.1); border-left: 4px solid #ffc107; padding: 1.5rem; border-radius: 0 8px 8px 0;">
-                    <h3 style="color: #f57c00; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                <div class="guide-warning-callout">
+                    <h3 class="guide-warning-title">
                         ⚠️ Важные моменты:
                     </h3>
-                    <ul style="color: #666; line-height: 1.8; margin: 0; padding-left: 1.5rem;">
+                    <ul class="guide-list">
                         <li>Используйте корпоративный логин и пароль</li>
                         <li>Те же учетные данные, что для Windows и корпоративной почты</li>
                         <li>Доступ к owa.airastana.com с теми же данными</li>
@@ -1219,76 +398,76 @@
             </div>
 
             <!-- Основное содержание гайда -->
-            <div style="background: rgba(255, 255, 255, 0.95); padding: 2rem; border-radius: 15px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); margin-bottom: 2rem;">
+            <div class="guide-content-panel">
 
                 <!-- Шаг 1 -->
-                <div style="border-left: 4px solid #1976d2; background: rgba(25, 118, 210, 0.05); padding: 1.5rem; margin-bottom: 2rem; border-radius: 0 8px 8px 0;">
-                    <h3 style="color: #1976d2; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                        <span style="background: #1976d2; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: bold;">1</span>
+                <div class="guide-step-block">
+                    <h3 class="guide-step-title-row">
+                        <span class="guide-step-number">1</span>
                         Заходим в "Меню администратора" → "Управление курсами"
                     </h3>
-                    <p style="color: #666; line-height: 1.6; margin-bottom: 1rem;">
+                    <p class="guide-text">
                         Нажмите на "Меню администратора" в верхнем правом углу экрана, затем выберите "Управление курсами".
                     </p>
-                    <div style="background: #f0f8ff; border: 1px solid #1976d2; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;">
-                        <p style="margin: 0 0 10px 0; color: #1976d2; font-weight: 500;">📷 Меню администратора</p>
-                        <img src="images/lms-admin-menu.png" alt="Меню администратора" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div class="guide-screenshot-frame">
+                        <p class="guide-screenshot-caption">📷 Меню администратора</p>
+                        <img loading="lazy" decoding="async" src="images/lms-admin-menu.png" alt="Меню администратора" class="guide-image">
                     </div>
                 </div>
 
                 <!-- Шаг 2 -->
-                <div style="border-left: 4px solid #1976d2; background: rgba(25, 118, 210, 0.05); padding: 1.5rem; margin-bottom: 2rem; border-radius: 0 8px 8px 0;">
-                    <h3 style="color: #1976d2; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                        <span style="background: #1976d2; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: bold;">2</span>
+                <div class="guide-step-block">
+                    <h3 class="guide-step-title-row">
+                        <span class="guide-step-number">2</span>
                         Просмотр списка курсов и категорий
                     </h3>
-                    <p style="color: #666; line-height: 1.6; margin-bottom: 1rem;">
+                    <p class="guide-text">
                         Здесь отображается полный список курсов и категорий, доступных вам для администрирования.
                     </p>
-                    <div style="background: #f0f8ff; border: 1px solid #1976d2; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;">
-                        <p style="margin: 0 0 10px 0; color: #1976d2; font-weight: 500;">📷 Список курсов и категорий</p>
-                        <img src="images/lms-courses-list.png" alt="Список курсов и категорий" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div class="guide-screenshot-frame">
+                        <p class="guide-screenshot-caption">📷 Список курсов и категорий</p>
+                        <img loading="lazy" decoding="async" src="images/lms-courses-list.png" alt="Список курсов и категорий" class="guide-image">
                     </div>
                 </div>
 
                 <!-- Шаг 3 -->
-                <div style="border-left: 4px solid #1976d2; background: rgba(25, 118, 210, 0.05); padding: 1.5rem; margin-bottom: 2rem; border-radius: 0 8px 8px 0;">
-                    <h3 style="color: #1976d2; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                        <span style="background: #1976d2; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: bold;">3</span>
+                <div class="guide-step-block">
+                    <h3 class="guide-step-title-row">
+                        <span class="guide-step-number">3</span>
                         Создание нового курса
                     </h3>
-                    <p style="color: #666; line-height: 1.6; margin-bottom: 1rem;">
+                    <p class="guide-text">
                         Для редактирования существующего курса просто кликните на его название. Для создания нового курса нажмите <strong>"+"</strong> в верхнем правом углу экрана.
                     </p>
-                    <div style="background: #f0f8ff; border: 1px solid #1976d2; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;">
-                        <p style="margin: 0 0 10px 0; color: #1976d2; font-weight: 500;">📷 Кнопка создания курса</p>
-                        <img src="images/lms-create-course-button.png" alt="Кнопка создания курса" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div class="guide-screenshot-frame">
+                        <p class="guide-screenshot-caption">📷 Кнопка создания курса</p>
+                        <img loading="lazy" decoding="async" src="images/lms-create-course-button.png" alt="Кнопка создания курса" class="guide-image">
                     </div>
                 </div>
 
                 <!-- Шаг 4 -->
-                <div style="border-left: 4px solid #1976d2; background: rgba(25, 118, 210, 0.05); padding: 1.5rem; margin-bottom: 2rem; border-radius: 0 8px 8px 0;">
-                    <h3 style="color: #1976d2; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                        <span style="background: #1976d2; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: bold;">4</span>
+                <div class="guide-step-block">
+                    <h3 class="guide-step-title-row">
+                        <span class="guide-step-number">4</span>
                         Заполняем обязательные поля
                     </h3>
                     
                     <!-- Тип курса -->
-                    <div style="background: white; border: 1px solid #e9ecef; border-radius: 8px; padding: 1.5rem; margin: 1rem 0;">
-                        <h4 style="color: #333; margin-bottom: 0.8rem; font-size: 1.1rem;">🎯 Тип</h4>
-                        <ul style="color: #666; line-height: 1.8; margin: 0; padding-left: 1.5rem;">
+                    <div class="guide-content-card">
+                        <h4 class="guide-content-card-title">🎯 Тип</h4>
+                        <ul class="guide-list">
                             <li><strong>Электронное обучение</strong> – курс для самостоятельного изучения студентом</li>
                             <li><strong>Аудиторный курс</strong> – проводится в классе под руководством тренера либо онлайн (в формате вебинара)</li>
                         </ul>
                     </div>
 
                     <!-- Код курса -->
-                    <div style="background: white; border: 1px solid #e9ecef; border-radius: 8px; padding: 1.5rem; margin: 1rem 0;">
-                        <h4 style="color: #333; margin-bottom: 0.8rem; font-size: 1.1rem;">🏷️ Код</h4>
-                        <p style="color: #666; line-height: 1.6; margin-bottom: 0.8rem;">
+                    <div class="guide-content-card">
+                        <h4 class="guide-content-card-title">🏷️ Код</h4>
+                        <p class="guide-text-tight">
                             В начале кода прописывается департамент, далее самостоятельно придумываете код курса.
                         </p>
-                        <div style="background: #f8f9fa; border-left: 3px solid #28a745; padding: 1rem; border-radius: 0 6px 6px 0;">
+                        <div class="guide-success-note-strong">
                             <strong>Примеры департаментов:</strong><br>
                             • GS – Ground Services<br>
                             • EM – Engineering and maintenance<br>
@@ -1297,60 +476,60 @@
                     </div>
 
                     <!-- Название курса -->
-                    <div style="background: white; border: 1px solid #e9ecef; border-radius: 8px; padding: 1.5rem; margin: 1rem 0;">
-                        <h4 style="color: #333; margin-bottom: 0.8rem; font-size: 1.1rem;">📝 Название курса</h4>
-                        <p style="color: #666; line-height: 1.6; margin: 0;">
+                    <div class="guide-content-card">
+                        <h4 class="guide-content-card-title">📝 Название курса</h4>
+                        <p class="guide-text-zero">
                             Введите четкое и понятное название курса.
                         </p>
                     </div>
 
                     <!-- Описание -->
-                    <div style="background: white; border: 1px solid #e9ecef; border-radius: 8px; padding: 1.5rem; margin: 1rem 0;">
-                        <h4 style="color: #333; margin-bottom: 0.8rem; font-size: 1.1rem;">📋 Описание</h4>
-                        <p style="color: #666; line-height: 1.6; margin-bottom: 0.8rem;">
+                    <div class="guide-content-card">
+                        <h4 class="guide-content-card-title">📋 Описание</h4>
+                        <p class="guide-text-tight">
                             Здесь рекомендуем описать:
                         </p>
-                        <ul style="color: #666; line-height: 1.8; margin: 0; padding-left: 1.5rem;">
+                        <ul class="guide-list">
                             <li>Каким темам посвящено обучение</li>
                             <li>В каком формате проводится</li>
                             <li>Чему научится пользователь</li>
                         </ul>
-                        <div style="background: #e3f2fd; border-left: 3px solid #2196f3; padding: 0.8rem; margin-top: 1rem; border-radius: 0 6px 6px 0;">
-                            <small style="color: #1976d2;"><strong>Важно:</strong> Это описание будут видеть участники курса.</small>
+                        <div class="guide-info-note-spaced">
+                            <small class="guide-blue-text"><strong>Важно:</strong> Это описание будут видеть участники курса.</small>
                         </div>
                     </div>
 
                     <!-- Категория -->
-                    <div style="background: white; border: 1px solid #e9ecef; border-radius: 8px; padding: 1.5rem; margin: 1rem 0;">
-                        <h4 style="color: #333; margin-bottom: 0.8rem; font-size: 1.1rem;">📁 Категория</h4>
-                        <p style="color: #666; line-height: 1.6; margin: 0;">
-                            <strong style="color: #d32f2f;">Обязательно(!)</strong> укажите, в какой папке будет лежать ваш курс.
+                    <div class="guide-content-card">
+                        <h4 class="guide-content-card-title">📁 Категория</h4>
+                        <p class="guide-text-zero">
+                            <strong class="guide-danger-text">Обязательно(!)</strong> укажите, в какой папке будет лежать ваш курс.
                         </p>
                     </div>
 
-                    <div style="background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; padding: 1rem; margin: 1rem 0;">
-                        <p style="margin: 0; color: #856404; font-weight: 500; text-align: center;">
+                    <div class="guide-warning-box">
+                        <p class="guide-warning-box-copy">
                             После заполнения всех полей нажмите <strong>"Сохранить и редактировать"</strong>
                         </p>
                     </div>
 
-                    <div style="background: #f0f8ff; border: 1px solid #1976d2; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;">
-                        <p style="margin: 0 0 10px 0; color: #1976d2; font-weight: 500;">📷 Форма создания курса</p>
-                        <img src="images/lms-course-creation-form.png" alt="Форма создания курса" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div class="guide-screenshot-frame">
+                        <p class="guide-screenshot-caption">📷 Форма создания курса</p>
+                        <img loading="lazy" decoding="async" src="images/lms-course-creation-form.png" alt="Форма создания курса" class="guide-image">
                     </div>
                 </div>
 
                 <!-- Шаг 5 -->
-                <div style="border-left: 4px solid #1976d2; background: rgba(25, 118, 210, 0.05); padding: 1.5rem; margin-bottom: 2rem; border-radius: 0 8px 8px 0;">
-                    <h3 style="color: #1976d2; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                        <span style="background: #1976d2; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: bold;">5</span>
+                <div class="guide-step-block">
+                    <h3 class="guide-step-title-row">
+                        <span class="guide-step-number">5</span>
                         Настройка свойств курса
                     </h3>
-                    <p style="color: #666; line-height: 1.6; margin-bottom: 1rem;">
+                    <p class="guide-text">
                         Система вас перенаправит в окно управления курсом. В первой вкладке <strong>("Свойства")</strong> вы можете сделать все необходимые настройки:
                     </p>
                     
-                    <ul style="color: #666; line-height: 1.8; margin-bottom: 1.5rem; padding-left: 1.5rem;">
+                    <ul class="guide-list-spaced">
                         <li>Поменять название/описание/код/категорию курса</li>
                         <li>Добавить изображение</li>
                         <li>Установить ограничения по времени</li>
@@ -1358,51 +537,51 @@
                         <li>И многие другие опции</li>
                     </ul>
 
-                    <div style="background: #f0f8ff; border: 1px solid #1976d2; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;">
-                        <p style="margin: 0 0 10px 0; color: #1976d2; font-weight: 500;">📷 Вкладка "Свойства"</p>
-                        <img src="images/lms-course-properties-tab.png" alt="Вкладка Свойства" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div class="guide-screenshot-frame">
+                        <p class="guide-screenshot-caption">📷 Вкладка "Свойства"</p>
+                        <img loading="lazy" decoding="async" src="images/lms-course-properties-tab.png" alt="Вкладка Свойства" class="guide-image">
                     </div>
                 </div>
 
                 <!-- Важное замечание -->
-                <div style="background: rgba(255, 193, 7, 0.1); border-left: 4px solid #ffc107; padding: 1.5rem; border-radius: 0 8px 8px 0; margin-bottom: 2rem;">
-                    <h3 style="color: #f57c00; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                <div class="guide-warning-callout-spaced">
+                    <h3 class="guide-warning-title">
                         ⚠️ Важное замечание о публикации курса:
                     </h3>
-                    <p style="color: #666; line-height: 1.6; margin-bottom: 1rem;">
-                        Большинство настроек являются <strong>необязательными</strong> (вы сможете запустить курс и без них). Но <strong style="color: #d32f2f;">обязательной</strong> является изменение состояния курса в нижнем правом углу.
+                    <p class="guide-text">
+                        Большинство настроек являются <strong>необязательными</strong> (вы сможете запустить курс и без них). Но <strong class="guide-danger-text">обязательной</strong> является изменение состояния курса в нижнем правом углу.
                     </p>
                     
-                    <div style="background: white; border: 2px solid #ffc107; border-radius: 8px; padding: 1.5rem; margin: 1rem 0;">
-                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
-                            <div style="background: #dc3545; color: white; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 500;">
+                    <div class="guide-warning-card">
+                        <div class="guide-inline-row">
+                            <div class="guide-danger-badge">
                                 ❌ По умолчанию: "На техническом обслуживании"
                             </div>
-                            <span style="font-size: 1.5rem;">→</span>
-                            <div style="background: #28a745; color: white; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 500;">
+                            <span class="store-icon">→</span>
+                            <div class="guide-success-badge">
                                 ✅ Изменить на: "Опубликован"
                             </div>
                         </div>
-                        <p style="color: #d32f2f; font-weight: 500; margin: 0; text-align: center;">
+                        <p class="guide-danger-message">
                             Иначе даже после зачисления участников курс будет им недоступен!
                         </p>
                     </div>
 
-                    <div style="background: #f0f8ff; border: 1px solid #1976d2; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;">
-                        <p style="margin: 0 0 10px 0; color: #1976d2; font-weight: 500;">📷 Изменение статуса курса</p>
-                        <img src="images/lms-course-status-change.png" alt="Изменение статуса курса" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div class="guide-screenshot-frame">
+                        <p class="guide-screenshot-caption">📷 Изменение статуса курса</p>
+                        <img loading="lazy" decoding="async" src="images/lms-course-status-change.png" alt="Изменение статуса курса" class="guide-image">
                     </div>
                 </div>
 
                 <!-- Итог -->
-                <div style="background: rgba(76, 175, 80, 0.1); border-left: 4px solid #4caf50; padding: 1.5rem; border-radius: 0 8px 8px 0;">
-                    <h3 style="color: #4caf50; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                <div class="guide-success-callout">
+                    <h3 class="guide-success-title">
                         ✅ Поздравляем! Курс создан
                     </h3>
-                    <p style="color: #666; line-height: 1.6; margin-bottom: 1rem;">
+                    <p class="guide-text">
                         После выполнения всех шагов ваш курс будет создан и готов к использованию. Теперь вы можете:
                     </p>
-                    <ul style="color: #666; line-height: 1.8; margin: 0; padding-left: 1.5rem;">
+                    <ul class="guide-list">
                         <li>Добавить учебные материалы</li>
                         <li>Зачислить участников</li>
                         <li>Настроить дополнительные параметры</li>
@@ -1423,106 +602,106 @@
             </div>
 
             <!-- Основное содержание гайда -->
-            <div style="background: rgba(255, 255, 255, 0.95); padding: 2rem; border-radius: 15px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); margin-bottom: 2rem;">
-                <p style="color: #666; line-height: 1.8; font-size: 1.1rem; margin-bottom: 2rem;">
+            <div class="guide-content-panel">
+                <p class="guide-intro">
                     Чтобы установить мобильное приложение Go.Learn перейдите по ссылке либо отсканируйте QR код ниже.
                 </p>
 
                 <!-- Шаг 1 -->
-                <div style="border-left: 4px solid #1976d2; background: rgba(25, 118, 210, 0.05); padding: 1.5rem; margin-bottom: 2rem; border-radius: 0 8px 8px 0;">
-                    <h3 style="color: #1976d2; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                        <span style="background: #1976d2; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: bold;">1</span>
+                <div class="guide-step-block">
+                    <h3 class="guide-step-title-row">
+                        <span class="guide-step-number">1</span>
                         Установите приложение Go.Learn
                     </h3>
                     
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem;">
+                    <div class="store-grid">
                         <!-- iOS -->
-                        <div style="background: white; border: 2px solid #e9ecef; border-radius: 10px; padding: 1.5rem; text-align: center;">
-                            <h4 style="color: #333; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
-                                <span style="font-size: 1.5rem;">🍎</span>
+                        <div class="store-card">
+                            <h4 class="store-card-title">
+                                <span class="store-icon">🍎</span>
                                 iOS: AppStore
                             </h4>
-                            <div style="background: #f0f8ff; border: 1px solid #1976d2; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;">
-                                <p style="margin: 0 0 10px 0; color: #1976d2; font-weight: 500;">📷 QR-код для App Store</p>
-                                <img src="images/golearn-appstore-qr.png" alt="QR-код для App Store" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                            <div class="guide-screenshot-frame">
+                                <p class="guide-screenshot-caption">📷 QR-код для App Store</p>
+                                <img loading="lazy" decoding="async" src="images/golearn-appstore-qr.png" alt="QR-код для App Store" class="guide-image">
                             </div>
                         </div>
 
                         <!-- Android -->
-                        <div style="background: white; border: 2px solid #e9ecef; border-radius: 10px; padding: 1.5rem; text-align: center;">
-                            <h4 style="color: #333; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
-                                <span style="font-size: 1.5rem;">🤖</span>
+                        <div class="store-card">
+                            <h4 class="store-card-title">
+                                <span class="store-icon">🤖</span>
                                 Android: Google Play
                             </h4>
-                            <div style="background: #f0f8ff; border: 1px solid #1976d2; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;">
-                                <p style="margin: 0 0 10px 0; color: #1976d2; font-weight: 500;">📷 QR-код для Google Play</p>
-                                <img src="images/golearn-googleplay-qr.png" alt="QR-код для Google Play" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                            <div class="guide-screenshot-frame">
+                                <p class="guide-screenshot-caption">📷 QR-код для Google Play</p>
+                                <img loading="lazy" decoding="async" src="images/golearn-googleplay-qr.png" alt="QR-код для Google Play" class="guide-image">
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Шаг 2 -->
-                <div style="border-left: 4px solid #1976d2; background: rgba(25, 118, 210, 0.05); padding: 1.5rem; margin-bottom: 2rem; border-radius: 0 8px 8px 0;">
-                    <h3 style="color: #1976d2; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                        <span style="background: #1976d2; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: bold;">2</span>
+                <div class="guide-step-block">
+                    <h3 class="guide-step-title-row">
+                        <span class="guide-step-number">2</span>
                         Настройте платформу
                     </h3>
-                    <p style="color: #666; line-height: 1.6; margin-bottom: 1rem;">
+                    <p class="guide-text">
                         После установки приложения Go Learn откройте его, в поле "Platform URL" введите <strong>lms.airastana.com</strong> и нажмите "Proceed to login page"
                     </p>
                     
-                    <div style="background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 6px; padding: 1rem; font-family: 'Courier New', monospace; font-size: 1.1rem; color: #1976d2; font-weight: bold; text-align: center; margin-bottom: 1rem;">
+                    <div class="guide-code-display">
                         lms.airastana.com
                     </div>
 
-                    <div style="background: #f0f8ff; border: 1px solid #1976d2; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;">
-                        <p style="margin: 0 0 10px 0; color: #1976d2; font-weight: 500;">📷 Экран настройки Platform URL</p>
-                        <img src="images/golearn-platform-url-setup.png" alt="Экран настройки Platform URL" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div class="guide-screenshot-frame">
+                        <p class="guide-screenshot-caption">📷 Экран настройки Platform URL</p>
+                        <img loading="lazy" decoding="async" src="images/golearn-platform-url-setup.png" alt="Экран настройки Platform URL" class="guide-image">
                     </div>
                 </div>
 
                 <!-- Шаг 3 -->
-                <div style="border-left: 4px solid #1976d2; background: rgba(25, 118, 210, 0.05); padding: 1.5rem; margin-bottom: 2rem; border-radius: 0 8px 8px 0;">
-                    <h3 style="color: #1976d2; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                        <span style="background: #1976d2; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: bold;">3</span>
+                <div class="guide-step-block">
+                    <h3 class="guide-step-title-row">
+                        <span class="guide-step-number">3</span>
                         Войдите как сотрудник
                     </h3>
-                    <p style="color: #666; line-height: 1.6; margin-bottom: 1rem;">
+                    <p class="guide-text">
                         Далее нажмите "Войти как сотрудник" чтобы войти под доменной учётной записью.
                     </p>
 
-                    <div style="background: #f0f8ff; border: 1px solid #1976d2; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;">
-                        <p style="margin: 0 0 10px 0; color: #1976d2; font-weight: 500;">📷 Кнопка "Войти как сотрудник"</p>
-                        <img src="images/images/golearn-employee-login-button.png" alt="Кнопка Войти как сотрудник" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div class="guide-screenshot-frame">
+                        <p class="guide-screenshot-caption">📷 Кнопка "Войти как сотрудник"</p>
+                        <img loading="lazy" decoding="async" src="images/golearn-employee-login-button.png" alt="Кнопка Войти как сотрудник" class="guide-image">
                     </div>
                 </div>
 
                 <!-- Шаг 4 -->
-                <div style="border-left: 4px solid #1976d2; background: rgba(25, 118, 210, 0.05); padding: 1.5rem; margin-bottom: 2rem; border-radius: 0 8px 8px 0;">
-                    <h3 style="color: #1976d2; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                        <span style="background: #1976d2; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: bold;">4</span>
+                <div class="guide-step-block">
+                    <h3 class="guide-step-title-row">
+                        <span class="guide-step-number">4</span>
                         Введите корпоративные данные
                     </h3>
-                    <p style="color: #666; line-height: 1.6; margin-bottom: 1rem;">
+                    <p class="guide-text">
                         В открывшемся окне введите свой корпоративный логин/пароль.
                     </p>
 
-                    <div style="background: #f0f8ff; border: 1px solid #1976d2; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;">
-                        <p style="margin: 0 0 10px 0; color: #1976d2; font-weight: 500;">📷 Форма входа "Air Astana" JSC</p>
-                        <img src="images/golearn-airastana-login-form.png" alt="Форма входа Air Astana JSC" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div class="guide-screenshot-frame">
+                        <p class="guide-screenshot-caption">📷 Форма входа "Air Astana" JSC</p>
+                        <img loading="lazy" decoding="async" src="images/golearn-airastana-login-form.png" alt="Форма входа Air Astana JSC" class="guide-image">
                     </div>
                 </div>
 
                 <!-- Дополнительная информация -->
-                <div style="background: rgba(76, 175, 80, 0.1); border-left: 4px solid #4caf50; padding: 1.5rem; border-radius: 0 8px 8px 0;">
-                    <h3 style="color: #4caf50; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                <div class="guide-success-callout">
+                    <h3 class="guide-success-title">
                         ✅ Готово!
                     </h3>
-                    <p style="color: #666; line-height: 1.6; margin-bottom: 1rem;">
+                    <p class="guide-text">
                         После успешного входа вы получите доступ к мобильной версии LMS с возможностью:
                     </p>
-                    <ul style="color: #666; line-height: 1.8; margin: 0; padding-left: 1.5rem;">
+                    <ul class="guide-list">
                         <li>Проходить курсы в мобильном режиме</li>
                         <li>Получать push-уведомления о новых материалах</li>
                         <li>Синхронизировать прогресс с веб-версией</li>
@@ -1531,11 +710,11 @@
                 </div>
 
                 <!-- Важные моменты -->
-                <div style="background: rgba(255, 193, 7, 0.1); border-left: 4px solid #ffc107; padding: 1.5rem; border-radius: 0 8px 8px 0; margin-top: 2rem;">
-                    <h3 style="color: #f57c00; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                <div class="guide-warning-callout-top">
+                    <h3 class="guide-warning-title">
                         ⚠️ Важные моменты:
                     </h3>
-                    <ul style="color: #666; line-height: 1.8; margin: 0; padding-left: 1.5rem;">
+                    <ul class="guide-list">
                         <li>Используйте те же учетные данные, что и для веб-версии</li>
                         <li>Убедитесь в стабильном интернет-соединении при первом входе</li>
                         <li>Приложение поддерживает работу оффлайн после загрузки контента</li>
@@ -1556,131 +735,131 @@
             </div>
 
             <!-- Основное содержание гайда -->
-            <div style="background: rgba(255, 255, 255, 0.95); padding: 2rem; border-radius: 15px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); margin-bottom: 2rem;">
+            <div class="guide-content-panel">
 
                 <!-- Шаг 1 -->
-                <div style="border-left: 4px solid #1976d2; background: rgba(25, 118, 210, 0.05); padding: 1.5rem; margin-bottom: 2rem; border-radius: 0 8px 8px 0;">
-                    <h3 style="color: #1976d2; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                        <span style="background: #1976d2; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: bold;">1</span>
+                <div class="guide-step-block">
+                    <h3 class="guide-step-title-row">
+                        <span class="guide-step-number">1</span>
                         Заходим в "Меню администратора" → "Управление курсами"
                     </h3>
-                    <p style="color: #666; line-height: 1.6; margin-bottom: 1rem;">
+                    <p class="guide-text">
                         Выберите нужный курс из списка доступных курсов.
                     </p>
-                    <div style="background: #f0f8ff; border: 1px solid #1976d2; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;">
-                        <p style="margin: 0 0 10px 0; color: #1976d2; font-weight: 500;">📷 Меню администратора и список курсов</p>
-                        <img src="images/lms-admin-menu-courses.png" alt="Меню администратора и список курсов" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div class="guide-screenshot-frame">
+                        <p class="guide-screenshot-caption">📷 Меню администратора и список курсов</p>
+                        <img loading="lazy" decoding="async" src="images/lms-admin-menu-courses.png" alt="Меню администратора и список курсов" class="guide-image">
                     </div>
                 </div>
 
                 <!-- Шаг 2 -->
-                <div style="border-left: 4px solid #1976d2; background: rgba(25, 118, 210, 0.05); padding: 1.5rem; margin-bottom: 2rem; border-radius: 0 8px 8px 0;">
-                    <h3 style="color: #1976d2; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                        <span style="background: #1976d2; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: bold;">2</span>
+                <div class="guide-step-block">
+                    <h3 class="guide-step-title-row">
+                        <span class="guide-step-number">2</span>
                         Открываем вкладку "Учебный материал"
                     </h3>
-                    <p style="color: #666; line-height: 1.6; margin-bottom: 1rem;">
+                    <p class="guide-text">
                         Для редактирования существующего курса просто кликните на его название. В открывшемся окне откройте вкладку <strong>"Учебный материал"</strong>. Здесь будет отображаться список всех загруженных в курс материалов.
                     </p>
-                    <p style="color: #666; line-height: 1.6; margin-bottom: 1rem;">
+                    <p class="guide-text">
                         Для загрузки нового материала нажмите <strong>"Добавить учебный материал"</strong>
                     </p>
-                    <div style="background: #f0f8ff; border: 1px solid #1976d2; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;">
-                        <p style="margin: 0 0 10px 0; color: #1976d2; font-weight: 500;">📷 Вкладка "Учебный материал"</p>
-                        <img src="images/lms-learning-materials-tab.png" alt="Вкладка Учебный материал" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div class="guide-screenshot-frame">
+                        <p class="guide-screenshot-caption">📷 Вкладка "Учебный материал"</p>
+                        <img loading="lazy" decoding="async" src="images/lms-learning-materials-tab.png" alt="Вкладка Учебный материал" class="guide-image">
                     </div>
                 </div>
 
                 <!-- Шаг 3 -->
-                <div style="border-left: 4px solid #1976d2; background: rgba(25, 118, 210, 0.05); padding: 1.5rem; margin-bottom: 2rem; border-radius: 0 8px 8px 0;">
-                    <h3 style="color: #1976d2; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                        <span style="background: #1976d2; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: bold;">3</span>
+                <div class="guide-step-block">
+                    <h3 class="guide-step-title-row">
+                        <span class="guide-step-number">3</span>
                         Выбираем тип загружаемого материала
                     </h3>
                     
                     <!-- SCORM/AICC/xAPI -->
-                    <div style="background: white; border: 1px solid #e9ecef; border-radius: 8px; padding: 1.5rem; margin: 1rem 0;">
-                        <h4 style="color: #333; margin-bottom: 0.8rem; font-size: 1.1rem;">📦 SCORM/AICC/xAPI (Tin Can)</h4>
-                        <p style="color: #666; line-height: 1.6; margin: 0;">
+                    <div class="guide-content-card">
+                        <h4 class="guide-content-card-title">📦 SCORM/AICC/xAPI (Tin Can)</h4>
+                        <p class="guide-text-zero">
                             Различные форматы интерактивных онлайн курсов, требующих взаимодействия с участником.
                         </p>
                     </div>
 
                     <!-- Видео -->
-                    <div style="background: white; border: 1px solid #e9ecef; border-radius: 8px; padding: 1.5rem; margin: 1rem 0;">
-                        <h4 style="color: #333; margin-bottom: 0.8rem; font-size: 1.1rem;">🎬 Видео</h4>
-                        <p style="color: #666; line-height: 1.6; margin-bottom: 0.8rem;">
+                    <div class="guide-content-card">
+                        <h4 class="guide-content-card-title">🎬 Видео</h4>
+                        <p class="guide-text-tight">
                             Загрузка готового видеоролика с компьютера либо предоставление ссылки на внешний источник.
                         </p>
-                        <div style="background: #fff3cd; border-left: 3px solid #ffc107; padding: 0.8rem; border-radius: 0 6px 6px 0;">
-                            <p style="margin: 0; color: #856404; font-size: 0.9rem;">
+                        <div class="guide-warning-note-compact">
+                            <p class="guide-warning-copy">
                                 <strong>Важно:</strong> Второй вариант (внешние ссылки) не рекомендуется из-за возможной блокировки ресурсов как YouTube и других сайтов.
                             </p>
                         </div>
                     </div>
 
                     <!-- Файл -->
-                    <div style="background: white; border: 1px solid #e9ecef; border-radius: 8px; padding: 1.5rem; margin: 1rem 0;">
-                        <h4 style="color: #333; margin-bottom: 0.8rem; font-size: 1.1rem;">📄 Файл</h4>
-                        <p style="color: #666; line-height: 1.6; margin: 0;">
+                    <div class="guide-content-card">
+                        <h4 class="guide-content-card-title">📄 Файл</h4>
+                        <p class="guide-text-zero">
                             Загрузка файла в любом формате. Данный файл не будет воспроизводиться в LMS, он просто будет доступен для скачивания участниками.
                         </p>
                     </div>
 
                     <!-- Конвертер слайдов -->
-                    <div style="background: white; border: 1px solid #e9ecef; border-radius: 8px; padding: 1.5rem; margin: 1rem 0;">
-                        <h4 style="color: #333; margin-bottom: 0.8rem; font-size: 1.1rem;">🎨 Конвертер слайдов</h4>
-                        <p style="color: #666; line-height: 1.6; margin-bottom: 0.8rem;">
+                    <div class="guide-content-card">
+                        <h4 class="guide-content-card-title">🎨 Конвертер слайдов</h4>
+                        <p class="guide-text-tight">
                             Загрузка презентации в формате PowerPoint либо PDF.
                         </p>
-                        <div style="background: #f8d7da; border-left: 3px solid #dc3545; padding: 0.8rem; border-radius: 0 6px 6px 0;">
-                            <p style="margin: 0; color: #721c24; font-size: 0.9rem;">
+                        <div class="guide-danger-note">
+                            <p class="guide-danger-copy">
                                 <strong>Важно:</strong> Встроенная анимация, переходы, озвучка, видео автоматически удаляются. Если необходимо их сохранить, используйте другие форматы (загрузите видеоролик отдельно, конвертируйте в SCORM и т.д.)
                             </p>
                         </div>
                     </div>
 
                     <!-- Опрос/тест -->
-                    <div style="background: white; border: 1px solid #e9ecef; border-radius: 8px; padding: 1.5rem; margin: 1rem 0;">
-                        <h4 style="color: #333; margin-bottom: 0.8rem; font-size: 1.1rem;">❓ Опрос/тест</h4>
-                        <p style="color: #666; line-height: 1.6; margin: 0;">
+                    <div class="guide-content-card">
+                        <h4 class="guide-content-card-title">❓ Опрос/тест</h4>
+                        <p class="guide-text-zero">
                             Единственный тип материала, который создается прямо в LMS. Все остальные материалы разрабатываются в других форматах и загружаются уже в готовом виде.
                         </p>
                     </div>
 
-                    <div style="background: #e3f2fd; border: 1px solid #1976d2; border-radius: 8px; padding: 1rem; margin: 1rem 0;">
-                        <p style="margin: 0; color: #1976d2; font-weight: 500; text-align: center;">
+                    <div class="guide-blue-box">
+                        <p class="guide-info-caption">
                             📏 Максимальный размер одного файла: <strong>700 МБ</strong> (относится ко всем типам материалов)
                         </p>
                     </div>
                 </div>
 
                 <!-- Шаг 4 -->
-                <div style="border-left: 4px solid #1976d2; background: rgba(25, 118, 210, 0.05); padding: 1.5rem; margin-bottom: 2rem; border-radius: 0 8px 8px 0;">
-                    <h3 style="color: #1976d2; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                        <span style="background: #1976d2; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: bold;">4</span>
+                <div class="guide-step-block">
+                    <h3 class="guide-step-title-row">
+                        <span class="guide-step-number">4</span>
                         Настройка порядка отображения материалов
                     </h3>
-                    <p style="color: #666; line-height: 1.6; margin-bottom: 1rem;">
+                    <p class="guide-text">
                         После загрузки всех материалов можно установить порядок их отображения путем перетаскивания.
                     </p>
-                    <div style="background: #f0f8ff; border: 1px solid #1976d2; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;">
-                        <p style="margin: 0 0 10px 0; color: #1976d2; font-weight: 500;">📷 Перетаскивание материалов</p>
-                        <img src="images/lms-materials-drag-drop.png" alt="Перетаскивание материалов" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div class="guide-screenshot-frame">
+                        <p class="guide-screenshot-caption">📷 Перетаскивание материалов</p>
+                        <img loading="lazy" decoding="async" src="images/lms-materials-drag-drop.png" alt="Перетаскивание материалов" class="guide-image">
                     </div>
                 </div>
 
                 <!-- Шаг 5 -->
-                <div style="border-left: 4px solid #1976d2; background: rgba(25, 118, 210, 0.05); padding: 1.5rem; margin-bottom: 2rem; border-radius: 0 8px 8px 0;">
-                    <h3 style="color: #1976d2; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                        <span style="background: #1976d2; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: bold;">5</span>
+                <div class="guide-step-block">
+                    <h3 class="guide-step-title-row">
+                        <span class="guide-step-number">5</span>
                         Дополнительные настройки материалов
                     </h3>
-                    <p style="color: #666; line-height: 1.6; margin-bottom: 1rem;">
+                    <p class="guide-text">
                         Возле каждого материала есть всплывающее меню, где можно:
                     </p>
                     
-                    <ul style="color: #666; line-height: 1.8; margin-bottom: 1.5rem; padding-left: 1.5rem;">
+                    <ul class="guide-list-spaced">
                         <li>Удалить ненужные материалы</li>
                         <li>Заменить обновленной версией</li>
                         <li>Установить дополнительные настройки</li>
@@ -1688,76 +867,76 @@
                         <li>Временно скрыть материал от участников</li>
                     </ul>
 
-                    <div style="background: white; border: 1px solid #e9ecef; border-radius: 8px; padding: 1.5rem; margin: 1rem 0;">
-                        <h4 style="color: #333; margin-bottom: 0.8rem; font-size: 1.1rem;">🔗 Настройка предпосылок</h4>
-                        <p style="color: #666; line-height: 1.6; margin-bottom: 0.8rem;">
+                    <div class="guide-content-card">
+                        <h4 class="guide-content-card-title">🔗 Настройка предпосылок</h4>
+                        <p class="guide-text-tight">
                             В разделе "Предпосылки" можно настроить последовательность изучения материалов.
                         </p>
-                        <div style="background: #e8f5e8; border-left: 3px solid #28a745; padding: 0.8rem; border-radius: 0 6px 6px 0;">
-                            <p style="margin: 0; color: #155724; font-size: 0.9rem;">
+                        <div class="guide-success-note">
+                            <p class="guide-success-copy">
                                 <strong>Пример:</strong> Для доступа к материалу 3 необходимо пройти первые два материала.
                             </p>
                         </div>
                     </div>
 
-                    <div style="background: white; border: 1px solid #e9ecef; border-radius: 8px; padding: 1.5rem; margin: 1rem 0;">
-                        <h4 style="color: #333; margin-bottom: 0.8rem; font-size: 1.1rem;">👁️ Скрытие материалов</h4>
-                        <p style="color: #666; line-height: 1.6; margin: 0;">
+                    <div class="guide-content-card">
+                        <h4 class="guide-content-card-title">👁️ Скрытие материалов</h4>
+                        <p class="guide-text-zero">
                             В разделе "Настройки" можно временно скрыть материал от участников, не удаляя его из курса.
                         </p>
                     </div>
 
-                    <div style="background: #f0f8ff; border: 1px solid #1976d2; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;">
-                        <p style="margin: 0 0 10px 0; color: #1976d2; font-weight: 500;">📷 Меню настроек материала</p>
-                        <img src="images/lms-material-settings-menu.png" alt="Меню настроек материала" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div class="guide-screenshot-frame">
+                        <p class="guide-screenshot-caption">📷 Меню настроек материала</p>
+                        <img loading="lazy" decoding="async" src="images/lms-material-settings-menu.png" alt="Меню настроек материала" class="guide-image">
                     </div>
 
-                    <div style="background: #f0f8ff; border: 1px solid #1976d2; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;">
-                        <p style="margin: 0 0 10px 0; color: #1976d2; font-weight: 500;">📷 Настройка предпосылок</p>
-                        <img src="images/lms-material-prerequisites.png" alt="Настройка предпосылок" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div class="guide-screenshot-frame">
+                        <p class="guide-screenshot-caption">📷 Настройка предпосылок</p>
+                        <img loading="lazy" decoding="async" src="images/lms-material-prerequisites.png" alt="Настройка предпосылок" class="guide-image">
                     </div>
 
-                    <div style="background: #f0f8ff; border: 1px solid #1976d2; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;">
-                        <p style="margin: 0 0 10px 0; color: #1976d2; font-weight: 500;">📷 Скрытие материала</p>
-                        <img src="images/lms-material-hide-settings.png" alt="Скрытие материала" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div class="guide-screenshot-frame">
+                        <p class="guide-screenshot-caption">📷 Скрытие материала</p>
+                        <img loading="lazy" decoding="async" src="images/lms-material-hide-settings.png" alt="Скрытие материала" class="guide-image">
                     </div>
                 </div>
 
                 <!-- Шаг 6 -->
-                <div style="border-left: 4px solid #1976d2; background: rgba(25, 118, 210, 0.05); padding: 1.5rem; margin-bottom: 2rem; border-radius: 0 8px 8px 0;">
-                    <h3 style="color: #1976d2; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                        <span style="background: #1976d2; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: bold;">6</span>
+                <div class="guide-step-block">
+                    <h3 class="guide-step-title-row">
+                        <span class="guide-step-number">6</span>
                         Добавление мини-приложений курса
                     </h3>
-                    <p style="color: #666; line-height: 1.6; margin-bottom: 1rem;">
+                    <p class="guide-text">
                         В нижнем правом углу экрана есть дополнительная опция: <strong>"Добавить мини-приложения курса"</strong>.
                     </p>
-                    <p style="color: #666; line-height: 1.6; margin-bottom: 1rem;">
+                    <p class="guide-text">
                         Здесь можно добавить на экран участникам:
                     </p>
                     
-                    <ul style="color: #666; line-height: 1.8; margin-bottom: 1.5rem; padding-left: 1.5rem;">
+                    <ul class="guide-list-spaced">
                         <li>Описание курса</li>
                         <li>Область для комментариев</li>
                         <li>Дополнительные материалы для скачивания</li>
                         <li>И другие полезные элементы</li>
                     </ul>
 
-                    <div style="background: #f0f8ff; border: 1px solid #1976d2; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;">
-                        <p style="margin: 0 0 10px 0; color: #1976d2; font-weight: 500;">📷 Мини-приложения курса</p>
-                        <img src="images/lms-course-mini-apps.png" alt="Мини-приложения курса" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div class="guide-screenshot-frame">
+                        <p class="guide-screenshot-caption">📷 Мини-приложения курса</p>
+                        <img loading="lazy" decoding="async" src="images/lms-course-mini-apps.png" alt="Мини-приложения курса" class="guide-image">
                     </div>
                 </div>
 
                 <!-- Итог -->
-                <div style="background: rgba(76, 175, 80, 0.1); border-left: 4px solid #4caf50; padding: 1.5rem; border-radius: 0 8px 8px 0;">
-                    <h3 style="color: #4caf50; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                <div class="guide-success-callout">
+                    <h3 class="guide-success-title">
                         ✅ Материалы успешно загружены!
                     </h3>
-                    <p style="color: #666; line-height: 1.6; margin-bottom: 1rem;">
+                    <p class="guide-text">
                         После выполнения всех шагов учебные материалы будут доступны участникам курса. Теперь вы можете:
                     </p>
-                    <ul style="color: #666; line-height: 1.8; margin: 0; padding-left: 1.5rem;">
+                    <ul class="guide-list">
                         <li>Отслеживать прогресс изучения материалов</li>
                         <li>Обновлять контент по мере необходимости</li>
                         <li>Добавлять новые материалы в любое время</li>
@@ -1778,217 +957,217 @@
             </div>
 
             <!-- Основное содержание гайда -->
-            <div style="background: rgba(255, 255, 255, 0.95); padding: 2rem; border-radius: 15px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); margin-bottom: 2rem;">
+            <div class="guide-content-panel">
 
                 <!-- Шаг 1 -->
-                <div style="border-left: 4px solid #1976d2; background: rgba(25, 118, 210, 0.05); padding: 1.5rem; margin-bottom: 2rem; border-radius: 0 8px 8px 0;">
-                    <h3 style="color: #1976d2; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                        <span style="background: #1976d2; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: bold;">1</span>
+                <div class="guide-step-block">
+                    <h3 class="guide-step-title-row">
+                        <span class="guide-step-number">1</span>
                         Заходим в "Меню администратора" → "Уведомления"
                     </h3>
-                    <p style="color: #666; line-height: 1.6; margin-bottom: 1rem;">
+                    <p class="guide-text">
                         Нажмите на "Меню администратора" в верхнем правом углу экрана, затем выберите "Уведомления".
                     </p>
-                    <div style="background: #f0f8ff; border: 1px solid #1976d2; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;">
-                        <p style="margin: 0 0 10px 0; color: #1976d2; font-weight: 500;">📷 Меню администратора - Уведомления</p>
-                        <img src="images/lms-admin-menu-notifications.png" alt="Меню администратора - Уведомления" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div class="guide-screenshot-frame">
+                        <p class="guide-screenshot-caption">📷 Меню администратора - Уведомления</p>
+                        <div class="missing-image">Скриншот пока не добавлен: lms-admin-menu-notifications.png</div>
                     </div>
                 </div>
 
                 <!-- Шаг 2 -->
-                <div style="border-left: 4px solid #1976d2; background: rgba(25, 118, 210, 0.05); padding: 1.5rem; margin-bottom: 2rem; border-radius: 0 8px 8px 0;">
-                    <h3 style="color: #1976d2; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                        <span style="background: #1976d2; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: bold;">2</span>
+                <div class="guide-step-block">
+                    <h3 class="guide-step-title-row">
+                        <span class="guide-step-number">2</span>
                         Создаем новое уведомление
                     </h3>
-                    <p style="color: #666; line-height: 1.6; margin-bottom: 1rem;">
+                    <p class="guide-text">
                         На странице уведомлений нажмите кнопку <strong>"Новое уведомление"</strong> для создания нового правила уведомлений.
                     </p>
-                    <div style="background: #f0f8ff; border: 1px solid #1976d2; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;">
-                        <p style="margin: 0 0 10px 0; color: #1976d2; font-weight: 500;">📷 Кнопка "Новое уведомление"</p>
-                        <img src="images/lms-new-notification-button.png" alt="Кнопка Новое уведомление" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div class="guide-screenshot-frame">
+                        <p class="guide-screenshot-caption">📷 Кнопка "Новое уведомление"</p>
+                        <div class="missing-image">Скриншот пока не добавлен: lms-new-notification-button.png</div>
                     </div>
                 </div>
 
                 <!-- Шаг 3 -->
-                <div style="border-left: 4px solid #1976d2; background: rgba(25, 118, 210, 0.05); padding: 1.5rem; margin-bottom: 2rem; border-radius: 0 8px 8px 0;">
-                    <h3 style="color: #1976d2; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                        <span style="background: #1976d2; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: bold;">3</span>
+                <div class="guide-step-block">
+                    <h3 class="guide-step-title-row">
+                        <span class="guide-step-number">3</span>
                         Настройка основных параметров уведомления
                     </h3>
-                    <p style="color: #666; line-height: 1.6; margin-bottom: 1rem;">
+                    <p class="guide-text">
                         Выберите событие, при котором будет отправляться данное уведомление, и присвойте ему код:
                     </p>
                     
-                    <div style="background: white; border: 1px solid #e9ecef; border-radius: 8px; padding: 1.5rem; margin: 1rem 0;">
-                        <h4 style="color: #333; margin-bottom: 0.8rem; font-size: 1.1rem;">🎯 Выбор события</h4>
-                        <p style="color: #666; line-height: 1.6; margin-bottom: 0.8rem;">
+                    <div class="guide-content-card">
+                        <h4 class="guide-content-card-title">🎯 Выбор события</h4>
+                        <p class="guide-text-tight">
                             Выберите из выпадающего списка событие, которое будет триггером для отправки уведомления (например, "Пользователь подписался на курс").
                         </p>
                     </div>
 
-                    <div style="background: white; border: 1px solid #e9ecef; border-radius: 8px; padding: 1.5rem; margin: 1rem 0;">
-                        <h4 style="color: #333; margin-bottom: 0.8rem; font-size: 1.1rem;">🏷️ Код уведомления</h4>
-                        <p style="color: #666; line-height: 1.6; margin-bottom: 0.8rem;">
+                    <div class="guide-content-card">
+                        <h4 class="guide-content-card-title">🏷️ Код уведомления</h4>
+                        <p class="guide-text-tight">
                             Рекомендуется присвоить тот же код, который использовался в курсе, для удобства управления.
                         </p>
                     </div>
 
-                    <div style="background: white; border: 1px solid #e9ecef; border-radius: 8px; padding: 1.5rem; margin: 1rem 0;">
-                        <h4 style="color: #333; margin-bottom: 0.8rem; font-size: 1.1rem;">✉️ Способ доставки</h4>
-                        <p style="color: #666; line-height: 1.6; margin: 0;">
+                    <div class="guide-content-card">
+                        <h4 class="guide-content-card-title">✉️ Способ доставки</h4>
+                        <p class="guide-text-zero">
                             Обязательно поставьте галочку в поле <strong>"Эл. почта"</strong> для отправки уведомлений по электронной почте.
                         </p>
                     </div>
 
-                    <div style="background: #f0f8ff; border: 1px solid #1976d2; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;">
-                        <p style="margin: 0 0 10px 0; color: #1976d2; font-weight: 500;">📷 Общие настройки уведомления</p>
-                        <img src="images/lms-notification-general-settings.png" alt="Общие настройки уведомления" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div class="guide-screenshot-frame">
+                        <p class="guide-screenshot-caption">📷 Общие настройки уведомления</p>
+                        <div class="missing-image">Скриншот пока не добавлен: lms-notification-general-settings.png</div>
                     </div>
                 </div>
 
                 <!-- Шаг 4 -->
-                <div style="border-left: 4px solid #1976d2; background: rgba(25, 118, 210, 0.05); padding: 1.5rem; margin-bottom: 2rem; border-radius: 0 8px 8px 0;">
-                    <h3 style="color: #1976d2; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                        <span style="background: #1976d2; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: bold;">4</span>
+                <div class="guide-step-block">
+                    <h3 class="guide-step-title-row">
+                        <span class="guide-step-number">4</span>
                         Настройка параметров электронной почты
                     </h3>
-                    <p style="color: #666; line-height: 1.6; margin-bottom: 1rem;">
+                    <p class="guide-text">
                         Переходим во вкладку <strong>"Эл. почта"</strong> (слева) и заполняем обязательные поля:
                     </p>
 
                     <!-- От (имя) -->
-                    <div style="background: white; border: 1px solid #e9ecef; border-radius: 8px; padding: 1.5rem; margin: 1rem 0;">
-                        <h4 style="color: #333; margin-bottom: 0.8rem; font-size: 1.1rem;">👤 От (имя)</h4>
-                        <p style="color: #666; line-height: 1.6; margin-bottom: 0.8rem;">
+                    <div class="guide-content-card">
+                        <h4 class="guide-content-card-title">👤 От (имя)</h4>
+                        <p class="guide-text-tight">
                             <strong>Необязательное поле.</strong> Можете написать, от чьего имени будет приходить письмо.
                         </p>
-                        <div style="background: #f8d7da; border-left: 3px solid #dc3545; padding: 0.8rem; border-radius: 0 6px 6px 0;">
-                            <p style="margin: 0; color: #721c24; font-size: 0.9rem;">
+                        <div class="guide-danger-note">
+                            <p class="guide-danger-copy">
                                 <strong>Важно:</strong> Не указывайте существующие в адресной книге Outlook имена, иначе письмо будет заблокировано системой.
                             </p>
                         </div>
                     </div>
 
                     <!-- От (электронная почта) -->
-                    <div style="background: white; border: 1px solid #e9ecef; border-radius: 8px; padding: 1.5rem; margin: 1rem 0;">
-                        <h4 style="color: #333; margin-bottom: 0.8rem; font-size: 1.1rem;">📧 От (электронная почта)</h4>
-                        <p style="color: #666; line-height: 1.6; margin-bottom: 0.8rem;">
+                    <div class="guide-content-card">
+                        <h4 class="guide-content-card-title">📧 От (электронная почта)</h4>
+                        <p class="guide-text-tight">
                             Указываем адрес: <strong>noreply@elearning.airastana.com</strong>
                         </p>
-                        <div style="background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 6px; padding: 1rem; font-family: 'Courier New', monospace; font-size: 1.1rem; color: #1976d2; font-weight: bold; text-align: center;">
+                        <div class="guide-code-display-compact">
                             noreply@elearning.airastana.com
                         </div>
-                        <div style="background: #fff3cd; border-left: 3px solid #ffc107; padding: 0.8rem; margin-top: 0.8rem; border-radius: 0 6px 6px 0;">
-                            <p style="margin: 0; color: #856404; font-size: 0.9rem;">
+                        <div class="guide-warning-note-spaced">
+                            <p class="guide-warning-copy">
                                 <strong>Важно:</strong> С другого адреса письма не отправятся.
                             </p>
                         </div>
                     </div>
 
-                    <div style="background: #f0f8ff; border: 1px solid #1976d2; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;">
-                        <p style="margin: 0 0 10px 0; color: #1976d2; font-weight: 500;">📷 Настройки электронной почты</p>
-                        <img src="images/lms-notification-email-settings.png" alt="Настройки электронной почты" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div class="guide-screenshot-frame">
+                        <p class="guide-screenshot-caption">📷 Настройки электронной почты</p>
+                        <div class="missing-image">Скриншот пока не добавлен: lms-notification-email-settings.png</div>
                     </div>
                 </div>
 
                 <!-- Шаг 5 -->
-                <div style="border-left: 4px solid #1976d2; background: rgba(25, 118, 210, 0.05); padding: 1.5rem; margin-bottom: 2rem; border-radius: 0 8px 8px 0;">
-                    <h3 style="color: #1976d2; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                        <span style="background: #1976d2; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: bold;">5</span>
+                <div class="guide-step-block">
+                    <h3 class="guide-step-title-row">
+                        <span class="guide-step-number">5</span>
                         Настройка языков и содержания письма
                     </h3>
                     
-                    <div style="background: white; border: 1px solid #e9ecef; border-radius: 8px; padding: 1.5rem; margin: 1rem 0;">
-                        <h4 style="color: #333; margin-bottom: 0.8rem; font-size: 1.1rem;">🌐 Выбор языка</h4>
-                        <p style="color: #666; line-height: 1.6; margin-bottom: 0.8rem;">
+                    <div class="guide-content-card">
+                        <h4 class="guide-content-card-title">🌐 Выбор языка</h4>
+                        <p class="guide-text-tight">
                             Выберите нужный язык и заполните поля (тема письма и сам текст). Далее <strong>обязательно</strong> выберите второй язык и также заполните поля.
                         </p>
-                        <div style="background: #e3f2fd; border-left: 3px solid #2196f3; padding: 0.8rem; border-radius: 0 6px 6px 0;">
-                            <p style="margin: 0; color: #1976d2; font-size: 0.9rem;">
+                        <div class="guide-info-note">
+                            <p class="guide-info-copy">
                                 <strong>Зачем нужно несколько языков:</strong> Пользователи получают уведомление на том языке, который установлен в их профиле.
                             </p>
                         </div>
                     </div>
 
-                    <div style="background: white; border: 1px solid #e9ecef; border-radius: 8px; padding: 1.5rem; margin: 1rem 0;">
-                        <h4 style="color: #333; margin-bottom: 0.8rem; font-size: 1.1rem;">✏️ Редактирование текста</h4>
-                        <p style="color: #666; line-height: 1.6; margin-bottom: 0.8rem;">
+                    <div class="guide-content-card">
+                        <h4 class="guide-content-card-title">✏️ Редактирование текста</h4>
+                        <p class="guide-text-tight">
                             Текст письма можно отредактировать прямо в интерфейсе:
                         </p>
-                        <ul style="color: #666; line-height: 1.8; margin-bottom: 0.8rem; padding-left: 1.5rem;">
+                        <ul class="guide-list-tight">
                             <li>Изменить цвет, размер, тип шрифта</li>
                             <li>Добавить картинки и гиперссылки</li>
                             <li>Форматировать текст</li>
                         </ul>
                     </div>
 
-                    <div style="background: white; border: 1px solid #e9ecef; border-radius: 8px; padding: 1.5rem; margin: 1rem 0;">
-                        <h4 style="color: #333; margin-bottom: 0.8rem; font-size: 1.1rem;">🔗 Короткие коды</h4>
-                        <p style="color: #666; line-height: 1.6; margin-bottom: 0.8rem;">
+                    <div class="guide-content-card">
+                        <h4 class="guide-content-card-title">🔗 Короткие коды</h4>
+                        <p class="guide-text-tight">
                             Внизу страницы есть подсказки с короткими кодами. Их можно вставлять в название темы и текст письма. LMS автоматически подтянет нужные данные из системы.
                         </p>
-                        <div style="background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 6px; padding: 1rem;">
-                            <p style="margin: 0; color: #666; font-size: 0.9rem;">
+                        <div class="guide-neutral-box">
+                            <p class="guide-muted-small">
                                 <strong>Пример:</strong> Вместо кода <code>[course_name]</code> будет вставлено название курса.
                             </p>
                         </div>
                     </div>
 
-                    <div style="background: #fff3cd; border-left: 3px solid #ffc107; padding: 1rem; border-radius: 0 6px 6px 0;">
-                        <p style="margin: 0; color: #856404; font-size: 0.9rem;">
+                    <div class="guide-warning-note">
+                        <p class="guide-warning-copy">
                             <strong>Рекомендация:</strong> Поскольку не у всех пользователей язык выбран корректно, удобнее написать текст на двух языках сразу в одном письме и скопировать его во все языковые версии.
                         </p>
                     </div>
 
-                    <div style="background: #f0f8ff; border: 1px solid #1976d2; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;">
-                        <p style="margin: 0 0 10px 0; color: #1976d2; font-weight: 500;">📷 Редактор текста письма</p>
-                        <img src="images/lms-notification-text-editor.png" alt="Редактор текста письма" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div class="guide-screenshot-frame">
+                        <p class="guide-screenshot-caption">📷 Редактор текста письма</p>
+                        <div class="missing-image">Скриншот пока не добавлен: lms-notification-text-editor.png</div>
                     </div>
 
-                    <div style="background: #f0f8ff; border: 1px solid #1976d2; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;">
-                        <p style="margin: 0 0 10px 0; color: #1976d2; font-weight: 500;">📷 Короткие коды</p>
-                        <img src="images/lms-notification-short-codes.png" alt="Короткие коды" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div class="guide-screenshot-frame">
+                        <p class="guide-screenshot-caption">📷 Короткие коды</p>
+                        <div class="missing-image">Скриншот пока не добавлен: lms-notification-short-codes.png</div>
                     </div>
                 </div>
 
                 <!-- Шаг 6 -->
-                <div style="border-left: 4px solid #1976d2; background: rgba(25, 118, 210, 0.05); padding: 1.5rem; margin-bottom: 2rem; border-radius: 0 8px 8px 0;">
-                    <h3 style="color: #1976d2; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                        <span style="background: #1976d2; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: bold;">6</span>
+                <div class="guide-step-block">
+                    <h3 class="guide-step-title-row">
+                        <span class="guide-step-number">6</span>
                         Настройка времени отправки
                     </h3>
-                    <p style="color: #666; line-height: 1.6; margin-bottom: 1rem;">
+                    <p class="guide-text">
                         Выберите, когда должно отправляться уведомление:
                     </p>
                     
-                    <div style="background: white; border: 1px solid #e9ecef; border-radius: 8px; padding: 1.5rem; margin: 1rem 0;">
-                        <h4 style="color: #333; margin-bottom: 0.8rem; font-size: 1.1rem;">⏰ Варианты времени отправки</h4>
-                        <ul style="color: #666; line-height: 1.8; margin: 0; padding-left: 1.5rem;">
+                    <div class="guide-content-card">
+                        <h4 class="guide-content-card-title">⏰ Варианты времени отправки</h4>
+                        <ul class="guide-list">
                             <li><strong>Во время события</strong> – уведомление отправляется сразу при наступлении события</li>
                             <li><strong>После события</strong> – уведомление отправляется через определенное время после события</li>
                         </ul>
                     </div>
 
-                    <div style="background: #f0f8ff; border: 1px solid #1976d2; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;">
-                        <p style="margin: 0 0 10px 0; color: #1976d2; font-weight: 500;">📷 Настройка времени отправки</p>
-                        <img src="images/lms-notification-timing.png" alt="Настройка времени отправки" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div class="guide-screenshot-frame">
+                        <p class="guide-screenshot-caption">📷 Настройка времени отправки</p>
+                        <div class="missing-image">Скриншот пока не добавлен: lms-notification-timing.png</div>
                     </div>
                 </div>
 
                 <!-- Шаг 7 -->
-                <div style="border-left: 4px solid #1976d2; background: rgba(25, 118, 210, 0.05); padding: 1.5rem; margin-bottom: 2rem; border-radius: 0 8px 8px 0;">
-                    <h3 style="color: #1976d2; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                        <span style="background: #1976d2; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: bold;">7</span>
+                <div class="guide-step-block">
+                    <h3 class="guide-step-title-row">
+                        <span class="guide-step-number">7</span>
                         Выбор получателей уведомления
                     </h3>
-                    <p style="color: #666; line-height: 1.6; margin-bottom: 1rem;">
+                    <p class="guide-text">
                         Определите, кому будут отправляться уведомления:
                     </p>
                     
-                    <div style="background: white; border: 1px solid #e9ecef; border-radius: 8px; padding: 1.5rem; margin: 1rem 0;">
-                        <h4 style="color: #333; margin-bottom: 0.8rem; font-size: 1.1rem;">👥 Типы получателей</h4>
-                        <ul style="color: #666; line-height: 1.8; margin: 0; padding-left: 1.5rem;">
+                    <div class="guide-content-card">
+                        <h4 class="guide-content-card-title">👥 Типы получателей</h4>
+                        <ul class="guide-list">
                             <li><strong>Пользователи</strong> – обычные участники курсов</li>
                             <li><strong>Опытные пользователи</strong> – пользователи с расширенными правами</li>
                             <li><strong>Инструкторы</strong> – преподаватели и тренеры</li>
@@ -1997,51 +1176,51 @@
                         </ul>
                     </div>
 
-                    <div style="background: #f0f8ff; border: 1px solid #1976d2; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;">
-                        <p style="margin: 0 0 10px 0; color: #1976d2; font-weight: 500;">📷 Выбор получателей</p>
-                        <img src="images/lms-notification-recipients.png" alt="Выбор получателей" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div class="guide-screenshot-frame">
+                        <p class="guide-screenshot-caption">📷 Выбор получателей</p>
+                        <div class="missing-image">Скриншот пока не добавлен: lms-notification-recipients.png</div>
                     </div>
                 </div>
 
                 <!-- Шаг 8 -->
-                <div style="border-left: 4px solid #1976d2; background: rgba(25, 118, 210, 0.05); padding: 1.5rem; margin-bottom: 2rem; border-radius: 0 8px 8px 0;">
-                    <h3 style="color: #1976d2; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                        <span style="background: #1976d2; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: bold;">8</span>
+                <div class="guide-step-block">
+                    <h3 class="guide-step-title-row">
+                        <span class="guide-step-number">8</span>
                         Привязка к курсам и учебным планам
                     </h3>
-                    <p style="color: #666; line-height: 1.6; margin-bottom: 1rem;">
+                    <p class="guide-text">
                         Выберите, к каким именно курсам или учебным планам необходимо привязать уведомление:
                     </p>
                     
-                    <div style="background: white; border: 1px solid #e9ecef; border-radius: 8px; padding: 1.5rem; margin: 1rem 0;">
-                        <h4 style="color: #333; margin-bottom: 0.8rem; font-size: 1.1rem;">🎯 Варианты привязки</h4>
-                        <ul style="color: #666; line-height: 1.8; margin: 0; padding-left: 1.5rem;">
+                    <div class="guide-content-card">
+                        <h4 class="guide-content-card-title">🎯 Варианты привязки</h4>
+                        <ul class="guide-list">
                             <li><strong>Все курсы</strong> – уведомление будет работать для всех курсов в системе</li>
                             <li><strong>Выбранные курсы</strong> – уведомление будет работать только для указанных курсов</li>
                         </ul>
                     </div>
 
-                    <div style="background: #e3f2fd; border-left: 3px solid #2196f3; padding: 1rem; border-radius: 0 6px 6px 0;">
-                        <p style="margin: 0; color: #1976d2; font-size: 0.9rem;">
+                    <div class="guide-info-note-strong">
+                        <p class="guide-info-copy">
                             <strong>Рекомендация:</strong> Для большего контроля выбирайте конкретные курсы, а не "все курсы" сразу.
                         </p>
                     </div>
 
-                    <div style="background: #f0f8ff; border: 1px solid #1976d2; border-radius: 8px; padding: 1rem; margin: 1rem 0; text-align: center;">
-                        <p style="margin: 0 0 10px 0; color: #1976d2; font-weight: 500;">📷 Привязка к курсам</p>
-                        <img src="images/lms-notification-course-binding.png" alt="Привязка к курсам" style="max-width: 100%; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div class="guide-screenshot-frame">
+                        <p class="guide-screenshot-caption">📷 Привязка к курсам</p>
+                        <div class="missing-image">Скриншот пока не добавлен: lms-notification-course-binding.png</div>
                     </div>
                 </div>
 
                 <!-- Итог -->
-                <div style="background: rgba(76, 175, 80, 0.1); border-left: 4px solid #4caf50; padding: 1.5rem; border-radius: 0 8px 8px 0;">
-                    <h3 style="color: #4caf50; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                <div class="guide-success-callout">
+                    <h3 class="guide-success-title">
                         ✅ Уведомление успешно создано!
                     </h3>
-                    <p style="color: #666; line-height: 1.6; margin-bottom: 1rem;">
+                    <p class="guide-text">
                         После выполнения всех шагов ваше уведомление будет активировано и готово к отправке. Теперь участники будут получать автоматические уведомления согласно настроенным правилам.
                     </p>
-                    <ul style="color: #666; line-height: 1.8; margin: 0; padding-left: 1.5rem;">
+                    <ul class="guide-list">
                         <li>Уведомления отправляются автоматически при наступлении событий</li>
                         <li>Можно в любое время отредактировать настройки</li>
                         <li>Возможно создать несколько уведомлений для разных событий</li>
@@ -2050,7 +1229,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
     <!-- Footer -->
     <footer class="site-footer">
@@ -2094,679 +1273,7 @@
         </div>
     </footer>
 
-    <!-- Остальные страницы гайдов... -->
-
-
-    
-
-        <!-- Остальные страницы гайдов... -->
-    </main>
-
-    <script>
-        // Translations object
-        const translations = {
-    ru: {
-        'guides.createNotification.subtitle': 'Пошаговая инструкция по созданию уведомлений',
-        'site.title': 'Центр обучения',
-        'welcome.title': 'Добро пожаловать в Центр обучения!',
-        'welcome.description': 'Хотите ли вы ознакомиться с интерфейсом? Мы покажем вам основные элементы и функции системы.',
-        'welcome.startTour': 'Да, показать тур',
-        'welcome.skip': 'Пропустить',
-        'tour.prev': 'Назад',
-        'tour.next': 'Далее',
-        'tour.finish': 'Завершить',
-        'sidebar.title': 'Руководства',
-        'sidebar.subtitle': 'Выберите инструкцию',
-        'menu.main': 'Основное',
-        'menu.home': 'Главная',
-        'menu.gettingStarted': 'Начало работы',
-        'menu.browserLogin': 'Как войти в ЛМС через браузер',
-        'menu.mobileApp': 'Как установить мобильное приложение',
-        'menu.contentCreation': 'Создание контента',
-        'menu.createCourse': 'Как создать курс в LMS',
-        'menu.uploadMaterial': 'Как загрузить учебный материал',
-        'menu.createNotification': 'Как создать уведомление',
-        'menu.management': 'Управление',
-        'menu.enrollParticipants': 'Как зачислить участников',
-        'menu.manageGroups': 'Управление группами',
-        'menu.manageCourses': 'Управление курсами',
-        'menu.reporting': 'Отчетность',
-        'menu.exportReport': 'Как выгрузить отчет',
-        'menu.newReports': 'Новые отчеты',
-        'menu.certificates': 'Сертификаты',
-        'menu.faq': 'FAQ / Частые вопросы',
-        'hero.title': 'Добро пожаловать в LMS',
-        'hero.subtitle': 'Полные руководства по использованию системы управления обучением',
-        'status.new': 'Новый гайд',
-        'status.viewed': 'Просмотрено',
-        'categories.gettingStarted': 'Начало работы',
-        'categories.mobile': 'Мобильное',
-        'categories.content': 'Контент',
-        'categories.communications': 'Коммуникации',
-        'categories.reports': 'Отчеты',
-        'categories.management': 'Управление',
-        'categories.certification': 'Сертификация',
-        'categories.support': 'Поддержка',
-        'reading.time5': '5 мин чтения',
-        'reading.time8': '8 мин чтения',
-        'reading.time10': '10 мин чтения',
-        'reading.time12': '12 мин чтения',
-        'reading.time15': '15 мин чтения',
-        'reading.time18': '18 мин чтения',
-        'reading.time20': '20 мин чтения',
-        'reading.time25': '25 мин чтения',
-        'contact.question': 'По вопросам обращайтесь:',
-        'back.toList': 'Вернуться к списку',
-        'guides.browserLogin.title': 'Как войти в ЛМС через браузер с компьютера',
-        'guides.browserLogin.description': 'Пошаговая инструкция по входу в систему управления обучением через веб-браузер.',
-        'guides.browserLogin.subtitle': 'Пошаговая инструкция по входу в систему',
-        'guides.browserLogin.contentTitle': 'Вход в систему управления обучением',
-        'guides.browserLogin.content': 'Здесь будет размещен полный контент руководства по входу в ЛМС через браузер...',
-        'guides.mobileApp.title': 'Как установить мобильное приложение',
-        'guides.uploadMaterial.subtitle': 'Как правильно загружать материалы к учебному курсу',
-        'guides.mobileApp.description': 'Руководство по установке и настройке мобильного приложения LMS для Android и iOS.',
-        'guides.mobileApp.subtitle': 'Руководство по установке мобильного приложения',
-        'guides.mobileApp.contentTitle': 'Установка мобильного приложения',
-        'guides.mobileApp.content': 'Здесь будет размещен полный контент руководства по установке мобильного приложения...',
-        'guides.createCourse.title': 'Как создать курс в LMS',
-        'guides.createCourse.description': 'Детальное руководство по созданию учебного курса в системе управления обучением.',
-        'guides.uploadMaterial.title': 'Как загрузить учебный материал в курс',
-        'guides.uploadMaterial.description': 'Инструкция по добавлению различных типов учебных материалов в созданные курсы.',
-        'guides.createNotification.title': 'Как создать уведомление',
-        'guides.createNotification.description': 'Руководство по созданию и отправке уведомлений участникам обучения.',
-        'guides.exportReport.title': 'Как выгрузить отчет',
-        'guides.exportReport.description': 'Пошаговая инструкция по созданию и экспорту отчетов о прогрессе обучения.',
-        'guides.enrollParticipants.title': 'Как зачислить участников на тренинг',
-        'guides.enrollParticipants.description': 'Руководство по добавлению участников на учебные курсы и тренинги.',
-        'guides.manageGroups.title': 'Управление группами',
-        'guides.manageGroups.description': 'Инструкция по созданию и управлению учебными группами в системе.',
-        'guides.manageCourses.title': 'Управление курсами',
-        'guides.manageCourses.description': 'Полное руководство по администрированию и настройке учебных курсов.',
-        'guides.newReports.title': 'Новые отчеты',
-        'guides.newReports.description': 'Обзор новых возможностей отчетности и аналитики в системе.',
-        'guides.certificates.title': 'Сертификаты',
-        'guides.certificates.description': 'Руководство по настройке и выдаче сертификатов об окончании обучения.',
-        'guides.faq.title': 'FAQ / Частые вопросы',
-        'guides.faq.description': 'Ответы на наиболее часто задаваемые вопросы по использованию системы.',
-        'tour.menuNavigation.title': 'Меню навигации',
-        'tour.menuNavigation.description': 'Нажмите на эту кнопку, чтобы открыть боковое меню со всеми доступными руководствами и инструкциями.',
-        'tour.guidesList.title': 'Список руководств',
-        'tour.guidesList.description': 'Здесь находятся все доступные руководства, разделенные по категориям. Выберите нужный раздел для изучения.',
-        'tour.guidesGrid.title': 'Каталог руководств',
-        'tour.guidesGrid.description': 'Все доступные руководства и инструкции представлены в виде карточек. Нажмите на любую карточку, чтобы открыть руководство.',
-        
-        // Footer translations
-        'footer.title': 'Центр обучения',
-        'footer.subtitle': 'Air Astana JSC',
-        'footer.support': 'Поддержка',
-        'footer.contactLabel': 'По вопросам обращайтесь:',
-        'footer.quickLinks': 'Быстрые ссылки',
-        'footer.home': 'Главная',
-        'footer.browserLogin': 'Вход в систему',
-        'footer.mobileApp': 'Мобильное приложение',
-        'footer.copyright': '© 2024 Air Astana JSC. Все права защищены.',
-        'footer.version': 'Версия системы: 2.0'
-    },
-    en: {
-        'site.title': 'Learning Center',
-        'welcome.title': 'Welcome to the Learning Center!',
-        'welcome.description': 'Would you like to familiarize yourself with the interface? We will show you the main elements and functions of the system.',
-        'welcome.startTour': 'Yes, show tour',
-        'welcome.skip': 'Skip',
-        'tour.prev': 'Back',
-        'tour.next': 'Next',
-        'tour.finish': 'Finish',
-        'sidebar.title': 'Guides',
-        'sidebar.subtitle': 'Select an instruction',
-        'menu.main': 'Main',
-        'menu.home': 'Home',
-        'menu.gettingStarted': 'Getting Started',
-        'menu.browserLogin': 'How to login to LMS via browser',
-        'menu.mobileApp': 'How to install mobile app',
-        'menu.contentCreation': 'Content Creation',
-        'menu.createCourse': 'How to create a course in LMS',
-        'menu.uploadMaterial': 'How to upload learning material',
-        'menu.createNotification': 'How to create a notification',
-        'menu.management': 'Management',
-        'menu.enrollParticipants': 'How to enroll participants',
-        'menu.manageGroups': 'Group management',
-        'menu.manageCourses': 'Course management',
-        'menu.reporting': 'Reporting',
-        'menu.exportReport': 'How to export report',
-        'menu.newReports': 'New reports',
-        'menu.certificates': 'Certificates',
-        'menu.faq': 'FAQ / Frequently asked questions',
-        'hero.title': 'Welcome to LMS',
-        'hero.subtitle': 'Complete guides for using the learning management system',
-        'status.new': 'New guide',
-        'status.viewed': 'Viewed',
-        'categories.gettingStarted': 'Getting Started',
-        'categories.mobile': 'Mobile',
-        'categories.content': 'Content',
-        'categories.communications': 'Communications',
-        'categories.reports': 'Reports',
-        'categories.management': 'Management',
-        'categories.certification': 'Certification',
-        'categories.support': 'Support',
-        'reading.time5': '5 min read',
-        'reading.time8': '8 min read',
-        'reading.time10': '10 min read',
-        'reading.time12': '12 min read',
-        'reading.time15': '15 min read',
-        'reading.time18': '18 min read',
-        'reading.time20': '20 min read',
-        'reading.time25': '25 min read',
-        'contact.question': 'For questions, contact:',
-        'back.toList': 'Back to list',
-        'guides.browserLogin.title': 'How to login to LMS via browser from computer',
-        'guides.browserLogin.description': 'Step-by-step instructions for logging into the learning management system via web browser.',
-        'guides.browserLogin.subtitle': 'Step-by-step instructions for system login',
-        'guides.browserLogin.contentTitle': 'Login to learning management system',
-        'guides.browserLogin.content': 'Full content guide for logging into LMS via browser will be placed here...',
-        'guides.mobileApp.title': 'How to install mobile application',
-        'guides.mobileApp.description': 'Guide for installing and configuring LMS mobile application for Android and iOS.',
-        'guides.mobileApp.subtitle': 'Mobile application installation guide',
-        'guides.mobileApp.contentTitle': 'Mobile application installation',
-        'guides.mobileApp.content': 'Full content guide for mobile application installation will be placed here...',
-        'guides.createCourse.title': 'How to create a course in LMS',
-        'guides.uploadMaterial.subtitle': 'How to upload files to the course',
-        'guides.createCourse.description': 'Detailed guide for creating an educational course in the learning management system.',
-        'guides.uploadMaterial.title': 'How to upload learning material to course',
-        'guides.uploadMaterial.description': 'Instructions for adding various types of learning materials to created courses.',
-        'guides.createNotification.title': 'How to create a notification',
-        'guides.createNotification.description': 'Guide for creating and sending notifications to learning participants.',
-        'guides.exportReport.title': 'How to export report',
-        'guides.exportReport.description': 'Step-by-step instructions for creating and exporting learning progress reports.',
-        'guides.enrollParticipants.title': 'How to enroll participants in training',
-        'guides.enrollParticipants.description': 'Guide for adding participants to educational courses and trainings.',
-        'guides.manageGroups.title': 'Group management',
-        'guides.manageGroups.description': 'Instructions for creating and managing learning groups in the system.',
-        'guides.manageCourses.title': 'Course management',
-        'guides.manageCourses.description': 'Complete guide for administering and configuring educational courses.',
-        'guides.newReports.title': 'New reports',
-        'guides.newReports.description': 'Overview of new reporting and analytics capabilities in the system.',
-        'guides.certificates.title': 'Certificates',
-        'guides.certificates.description': 'Guide for setting up and issuing completion certificates.',
-        'guides.faq.title': 'FAQ / Frequently asked questions',
-        'guides.faq.description': 'Answers to the most frequently asked questions about using the system.',
-        'tour.menuNavigation.title': 'Navigation menu',
-        'tour.menuNavigation.description': 'Click this button to open the side menu with all available guides and instructions.',
-        'tour.guidesList.title': 'Guides list',
-        'tour.guidesList.description': 'Here are all available guides, divided by categories. Select the section you need to study.',
-        'guides.createNotification.subtitle': 'Step-by-step guide to creating notifications',
-        'tour.guidesGrid.title': 'Guides catalog',
-        'tour.guidesGrid.description': 'All available guides and instructions are presented as cards. Click on any card to open the guide.',
-        
-        // Footer translations
-        'footer.title': 'Learning Center',
-        'footer.subtitle': 'Air Astana JSC',
-        'footer.support': 'Support',
-        'footer.contactLabel': 'For questions, contact:',
-        'footer.quickLinks': 'Quick Links',
-        'footer.home': 'Home',
-        'footer.browserLogin': 'System Login',
-        'footer.mobileApp': 'Mobile App',
-        'footer.copyright': '© 2024 Air Astana JSC. All rights reserved.',
-        'footer.version': 'System version: 2.0'
-    },
-    kk: {
-        'site.title': 'Оқыту орталығы',
-        'welcome.title': 'Оқыту орталығына қош келдіңіз!',
-        'welcome.description': 'Интерфейспен танысуды қалайсыз ба? Біз сізге жүйенің негізгі элементтері мен функцияларын көрсетеміз.',
-        'welcome.startTour': 'Иә, турды көрсету',
-        'welcome.skip': 'Өткізу',
-        'tour.prev': 'Артқа',
-        'tour.next': 'Келесі',
-        'tour.finish': 'Аяқтау',
-        'sidebar.title': 'Нұсқаулықтар',
-        'sidebar.subtitle': 'Нұсқаулықты таңдаңыз',
-        'menu.main': 'Негізгі',
-        'menu.home': 'Басты бет',
-        'menu.gettingStarted': 'Жұмысты бастау',
-        'menu.browserLogin': 'Браузер арқылы ЛМЖ-ға кіру',
-        'menu.mobileApp': 'Мобильді қосымшаны орнату',
-        'menu.contentCreation': 'Мазмұн жасау',
-        'menu.createCourse': 'ЛМЖ-да курс жасау',
-        'menu.uploadMaterial': 'Оқу материалын жүктеу',
-        'menu.createNotification': 'Хабарландыру жасау',
-        'menu.management': 'Басқару',
-        'menu.enrollParticipants': 'Қатысушыларды тіркеу',
-        'menu.manageGroups': 'Топтарды басқару',
-        'menu.manageCourses': 'Курстарды басқару',
-        'menu.reporting': 'Есептеме',
-        'menu.exportReport': 'Есепті шығару',
-        'menu.newReports': 'Жаңа есептемелер',
-        'menu.certificates': 'Сертификаттар',
-        'menu.faq': 'ЖҚС / Жиі қойылатын сұрақтар',
-        'hero.title': 'ЛМЖ-ға қош келдіңіз',
-        'hero.subtitle': 'Оқуды басқару жүйесін пайдалану бойынша толық нұсқаулықтар',
-        'status.new': 'Жаңа нұсқаулық',
-        'status.viewed': 'Қаралды',
-        'categories.gettingStarted': 'Жұмысты бастау',
-        'categories.mobile': 'Мобильді',
-        'categories.content': 'Мазмұн',
-        'categories.communications': 'Байланыс',
-        'categories.reports': 'Есептемелер',
-        'categories.management': 'Басқару',
-        'categories.certification': 'Сертификаттау',
-        'categories.support': 'Қолдау',
-        'reading.time5': '5 мин оқу',
-        'reading.time8': '8 мин оқу',
-        'reading.time10': '10 мин оқу',
-        'reading.time12': '12 мин оқу',
-        'reading.time15': '15 мин оқу',
-        'reading.time18': '18 мин оқу',
-        'reading.time20': '20 мин оқу',
-        'reading.time25': '25 мин оқу',
-        'contact.question': 'Сұрақтар бойынша хабарласыңыз:',
-        'back.toList': 'Тізімге оралу',
-        'guides.browserLogin.title': 'Компьютердің браузері арқылы ЛМЖ-ға кіру',
-        'guides.browserLogin.description': 'Веб-браузер арқылы оқуды басқару жүйесіне кіру бойынша қадамдық нұсқаулық.',
-        'guides.browserLogin.subtitle': 'Жүйеге кіру бойынша қадамдық нұсқаулық',
-        'guides.browserLogin.contentTitle': 'Оқуды басқару жүйесіне кіру',
-        'guides.browserLogin.content': 'Браузер арқылы ЛМЖ-ға кіру бойынша толық мазмұн нұсқаулығы мұнда орналастырылады...',
-        'guides.mobileApp.title': 'Мобильді қосымшаны орнату',
-        'guides.mobileApp.description': 'Android және iOS үшін ЛМЖ мобильді қосымшасын орнату және баптау нұсқаулығы.',
-        'guides.mobileApp.subtitle': 'Мобильді қосымшаны орнату нұсқаулығы',
-        'guides.mobileApp.contentTitle': 'Мобильді қосымшаны орнату',
-        'guides.mobileApp.content': 'Мобильді қосымшаны орнату бойынша толық мазмұн нұсқаулығы мұнда орналастырылады...',
-        'guides.createCourse.title': 'ЛМЖ-да курс жасау',
-        'guides.uploadMaterial.subtitle': 'ЛМЖ-ға оқу материалдарды енгізу',
-        'guides.createCourse.description': 'Оқуды басқару жүйесінде оқу курсын жасау бойынша толық нұсқаулық.',
-        'guides.uploadMaterial.title': 'Курсқа оқу материалын жүктеу',
-        'guides.uploadMaterial.description': 'Жасалған курстарға әртүрлі оқу материалдарын қосу бойынша нұсқаулық.',
-        'guides.createNotification.title': 'Хабарландыру жасау',
-        'guides.createNotification.description': 'Оқу қатысушыларына хабарландыру жасау және жіберу нұсқаулығы.',
-        'guides.exportReport.title': 'Есепті шығару',
-        'guides.exportReport.description': 'Оқу прогресі туралы есептерді жасау және экспорттау бойынша қадамдық нұсқаулық.',
-        'guides.enrollParticipants.title': 'Тренингке қатысушыларды тіркеу',
-        'guides.enrollParticipants.description': 'Оқу курстары мен тренингтерге қатысушыларды қосу нұсқаулығы.',
-        'guides.manageGroups.title': 'Топтарды басқару',
-        'guides.manageGroups.description': 'Жүйеде оқу топтарын жасау және басқару нұсқаулығы.',
-        'guides.manageCourses.title': 'Курстарды басқару',
-        'guides.manageCourses.description': 'Оқу курстарын әкімшілендіру және баптау бойынша толық нұсқаулық.',
-        'guides.newReports.title': 'Жаңа есептемелер',
-        'guides.newReports.description': 'Жүйедегі жаңа есептеме және аналитика мүмкіндіктеріне шолу.',
-        'guides.certificates.title': 'Сертификаттар',
-        'guides.certificates.description': 'Оқуды аяқтау туралы сертификаттарды баптау және беру нұсқаулығы.',
-        'guides.faq.title': 'ЖҚС / Жиі қойылатын сұрақтар',
-        'guides.faq.description': 'Жүйені пайдалану бойынша ең жиі қойылатын сұрақтарға жауаптар.',
-        'tour.menuNavigation.title': 'Навигация мәзірі',
-        'tour.menuNavigation.description': 'Барлық қолжетімді нұсқаулықтар мен нұсқаулармен бүйірлік мәзірді ашу үшін осы түймені басыңыз.',
-        'tour.guidesList.title': 'Нұсқаулықтар тізімі',
-        'tour.guidesList.description': 'Мұнда категориялар бойынша бөлінген барлық қолжетімді нұсқаулықтар бар. Зерделеу үшін қажетті бөлімді таңдаңыз.',
-        'tour.guidesGrid.title': 'Нұсқаулықтар каталогы',
-        'guides.createNotification.subtitle': 'Хабарландыру жасау бойынша қадамдық нұсқаулық',
-        'tour.guidesGrid.description': 'Барлық қолжетімді нұсқаулықтар мен нұсқаулар карточкалар түрінде ұсынылған. Нұсқаулықты ашу үшін кез келген карточканы басыңыз.',
-        
-        // Footer translations
-        'footer.title': 'Оқыту орталығы',
-        'footer.subtitle': 'Air Astana JSC',
-        'footer.support': 'Қолдау',
-        'footer.contactLabel': 'Сұрақтар бойынша хабарласыңыз:',
-        'footer.quickLinks': 'Жылдам сілтемелер',
-        'footer.home': 'Басты бет',
-        'footer.browserLogin': 'Жүйеге кіру',
-        'footer.mobileApp': 'Мобильді қосымша',
-        'footer.copyright': '© 2024 Air Astana JSC. Барлық құқықтар қорғалған.',
-        'footer.version': 'Жүйе нұсқасы: 2.0'
-    }
-};
-
-        // Language flags mapping
-        const languageFlags = {
-            'ru': '🇷🇺',
-            'en': '🇺🇸',
-            'kk': '🇰🇿'
-        };
-
-        const languageCodes = {
-            'ru': 'RU',
-            'en': 'EN',
-            'kk': 'KK'
-        };
-
-        // Current language
-        let currentLanguage = localStorage.getItem('selectedLanguage') || 'ru';
-
-        // Tour data with translations
-        const tourSteps = [
-            {
-                element: 'menu-toggle',
-                titleKey: 'tour.menuNavigation.title',
-                descriptionKey: 'tour.menuNavigation.description',
-                position: 'bottom',
-                action: 'openSidebar'
-            },
-            {
-                element: 'sidebar-menu',
-                titleKey: 'tour.guidesList.title',
-                descriptionKey: 'tour.guidesList.description',
-                position: 'right'
-            },
-            {
-                element: 'guides-grid',
-                titleKey: 'tour.guidesGrid.title',
-                descriptionKey: 'tour.guidesGrid.description',
-                position: 'top',
-                action: 'closeSidebar'
-            }
-        ];
-
-        let currentTourStep = 0;
-        let tourActive = false;
-        let viewedGuides = JSON.parse(localStorage.getItem('viewedGuides')) || [];
-
-        // Translation function
-        function t(key) {
-            return translations[currentLanguage]?.[key] || translations['ru'][key] || key;
-        }
-
-        // Update all translations on page
-        function updatePageTranslations() {
-            // Update elements with data-translate attribute
-            document.querySelectorAll('[data-translate]').forEach(element => {
-                const key = element.getAttribute('data-translate');
-                element.textContent = t(key);
-            });
-
-            // Update elements with data-translate-title attribute
-            document.querySelectorAll('[data-translate-title]').forEach(element => {
-                const key = element.getAttribute('data-translate-title');
-                element.setAttribute('title', t(key));
-            });
-
-            // Update document title
-            document.title = t('site.title') + ' - Руководства и инструкции';
-
-            // Update html lang attribute
-            document.documentElement.lang = currentLanguage;
-
-            // Update tour next button text
-            const tourNextBtn = document.getElementById('tour-next');
-            if (tourNextBtn && currentTourStep === tourSteps.length - 1) {
-                tourNextBtn.textContent = t('tour.finish');
-            }
-        }
-
-        // Language selector functions
-        function toggleLanguageDropdown() {
-            const dropdown = document.getElementById('language-dropdown');
-            const toggle = document.getElementById('language-toggle');
-            dropdown.classList.toggle('active');
-            toggle.classList.toggle('active');
-        }
-
-        function changeLanguage(lang) {
-            currentLanguage = lang;
-            localStorage.setItem('selectedLanguage', lang);
-            
-            // Update current language display
-            document.getElementById('current-flag').textContent = languageFlags[lang];
-            document.getElementById('current-lang').textContent = languageCodes[lang];
-            
-            // Update dropdown selection
-            document.querySelectorAll('.language-option').forEach(option => {
-                option.classList.remove('selected');
-                if (option.getAttribute('data-lang') === lang) {
-                    option.classList.add('selected');
-                }
-            });
-            
-            // Close dropdown
-            document.getElementById('language-dropdown').classList.remove('active');
-            document.getElementById('language-toggle').classList.remove('active');
-            
-            // Update all translations
-            updatePageTranslations();
-            
-            // Update guide status
-            updateGuideStatus();
-        }
-
-        // Close language dropdown when clicking outside
-        document.addEventListener('click', function(e) {
-            const languageSelector = document.querySelector('.language-selector');
-            if (!languageSelector.contains(e.target)) {
-                document.getElementById('language-dropdown').classList.remove('active');
-                document.getElementById('language-toggle').classList.remove('active');
-            }
-        });
-
-        // Update guide status icons
-        function updateGuideStatus() {
-            document.querySelectorAll('.guide-card').forEach(card => {
-                const guideId = card.getAttribute('data-guide');
-                const statusIcon = card.querySelector('.guide-status');
-                
-                if (viewedGuides.includes(guideId)) {
-                    statusIcon.classList.remove('new');
-                    statusIcon.classList.add('viewed');
-                    statusIcon.textContent = '✓';
-                    statusIcon.title = t('status.viewed');
-                } else {
-                    statusIcon.classList.remove('viewed');
-                    statusIcon.classList.add('new');
-                    statusIcon.textContent = '●';
-                    statusIcon.title = t('status.new');
-                }
-            });
-        }
-
-        // Check if user has seen the tour
-        function checkFirstVisit() {
-            const hasSeenTour = localStorage.getItem('hasSeenTour');
-            if (!hasSeenTour) {
-                setTimeout(() => {
-                    document.getElementById('welcome-overlay').style.display = 'block';
-                }, 1000);
-            }
-        }
-
-        function startTour() {
-            localStorage.setItem('hasSeenTour', 'true');
-            document.getElementById('welcome-overlay').style.display = 'none';
-            document.getElementById('tour-overlay').classList.add('active');
-            tourActive = true;
-            currentTourStep = 0;
-            showTourStep();
-        }
-
-        function skipTour() {
-            localStorage.setItem('hasSeenTour', 'true');
-            document.getElementById('welcome-overlay').style.display = 'none';
-        }
-
-        function showTourStep() {
-            if (currentTourStep >= tourSteps.length) {
-                endTour();
-                return;
-            }
-
-            const step = tourSteps[currentTourStep];
-            
-            // Execute step action before showing
-            if (step.action === 'openSidebar') {
-                toggleSidebar();
-            } else if (step.action === 'closeSidebar') {
-                closeSidebar();
-            }
-
-            // Wait a bit for animation to complete
-            setTimeout(() => {
-                const element = document.getElementById(step.element);
-                const highlight = document.getElementById('tour-highlight');
-                const dialog = document.getElementById('tour-dialog');
-
-                if (!element) {
-                    nextTourStep();
-                    return;
-                }
-
-                // Position highlight
-                const rect = element.getBoundingClientRect();
-                highlight.style.left = (rect.left - 5) + 'px';
-                highlight.style.top = (rect.top - 5) + 'px';
-                highlight.style.width = (rect.width + 10) + 'px';
-                highlight.style.height = (rect.height + 10) + 'px';
-
-                // Position dialog
-                let dialogTop, dialogLeft;
-                if (step.position === 'bottom') {
-                    dialogTop = rect.bottom + 20;
-                    dialogLeft = rect.left;
-                } else if (step.position === 'right') {
-                    dialogTop = rect.top;
-                    dialogLeft = rect.right + 20;
-                } else {
-                    dialogTop = rect.top - 180;
-                    dialogLeft = rect.left;
-                }
-
-                // Ensure dialog stays within viewport
-                if (dialogLeft + 300 > window.innerWidth) {
-                    dialogLeft = window.innerWidth - 320;
-                }
-                if (dialogLeft < 20) {
-                    dialogLeft = 20;
-                }
-                if (dialogTop < 20) {
-                    dialogTop = rect.bottom + 20;
-                }
-
-                dialog.style.left = dialogLeft + 'px';
-                dialog.style.top = dialogTop + 'px';
-
-                // Update dialog content with translations
-                document.getElementById('tour-title').textContent = t(step.titleKey);
-                document.getElementById('tour-description').textContent = t(step.descriptionKey);
-                document.getElementById('tour-progress').textContent = `${currentTourStep + 1} из ${tourSteps.length}`;
-
-                // Update buttons
-                document.getElementById('tour-prev').style.display = currentTourStep === 0 ? 'none' : 'inline-block';
-                const nextBtn = document.getElementById('tour-next');
-                nextBtn.textContent = currentTourStep === tourSteps.length - 1 ? t('tour.finish') : t('tour.next');
-            }, step.action ? 300 : 0);
-        }
-
-        function nextTourStep() {
-            currentTourStep++;
-            showTourStep();
-        }
-
-        function prevTourStep() {
-            if (currentTourStep > 0) {
-                currentTourStep--;
-                showTourStep();
-            }
-        }
-
-        function endTour() {
-            document.getElementById('tour-overlay').classList.remove('active');
-            closeSidebar();
-            tourActive = false;
-        }
-
-        // Existing functions
-        function toggleSidebar() {
-            const sidebar = document.querySelector('.sidebar');
-            const overlay = document.querySelector('.overlay');
-            const menuToggle = document.querySelector('.menu-toggle');
-            
-            sidebar.classList.toggle('open');
-            overlay.classList.toggle('active');
-            menuToggle.classList.toggle('active');
-        }
-
-        function closeSidebar() {
-            const sidebar = document.querySelector('.sidebar');
-            const overlay = document.querySelector('.overlay');
-            const menuToggle = document.querySelector('.menu-toggle');
-            
-            sidebar.classList.remove('open');
-            overlay.classList.remove('active');
-            menuToggle.classList.remove('active');
-        }
-
-        function showHome() {
-            document.querySelectorAll('.guide-page').forEach(page => {
-                page.classList.remove('active');
-            });
-            
-            document.getElementById('home-page').style.display = 'block';
-            
-            document.querySelectorAll('.menu-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            document.querySelector('.menu-item[onclick="showHome()"]').classList.add('active');
-            
-            closeSidebar();
-        }
-
-        function showGuide(guideId) {
-            // Mark guide as viewed
-            if (!viewedGuides.includes(guideId)) {
-                viewedGuides.push(guideId);
-                localStorage.setItem('viewedGuides', JSON.stringify(viewedGuides));
-                updateGuideStatus();
-            }
-
-            document.getElementById('home-page').style.display = 'none';
-            
-            document.querySelectorAll('.guide-page').forEach(page => {
-                page.classList.remove('active');
-            });
-            
-            const guidePage = document.getElementById(guideId + '-page');
-            if (guidePage) {
-                guidePage.classList.add('active');
-            }
-            
-            document.querySelectorAll('.menu-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            const menuItem = document.querySelector(`.menu-item[onclick="showGuide('${guideId}')"]`);
-            if (menuItem) {
-                menuItem.classList.add('active');
-            }
-            
-            closeSidebar();
-        }
-
-        // Close tour on escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && tourActive) {
-                endTour();
-            }
-        });
-
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            // Set initial language
-            changeLanguage(currentLanguage);
-            updateGuideStatus();
-            checkFirstVisit();
-        });
-
-        // Close sidebar when clicking on a menu item on mobile
-        document.querySelectorAll('.menu-item').forEach(item => {
-            item.addEventListener('click', () => {
-                if (window.innerWidth <= 768) {
-                    closeSidebar();
-                }
-            });
-        });
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 768) {
-                closeSidebar();
-            }
-            if (tourActive) {
-                showTourStep();
-            }
-        });
-    </script>
+    <script src="assets/index.js" defer></script>
 </body>
 </html>
 

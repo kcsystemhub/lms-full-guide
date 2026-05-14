@@ -4,613 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enrollment - Зачисление сотрудников на курсы в Docebo LMS</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .back-button {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 12px 20px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9em;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .back-button:hover {
-            background: rgba(255, 255, 255, 0.3);
-            border-color: rgba(255, 255, 255, 0.5);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .back-button:active {
-            transform: translateY(0);
-        }
-
-        .back-arrow {
-            font-size: 1.2em;
-            transition: transform 0.3s ease;
-        }
-
-        .back-button:hover .back-arrow {
-            transform: translateX(-3px);
-        }
-
-        .header {
-            text-align: center;
-            color: white;
-            margin-bottom: 30px;
-            padding: 40px 0;
-            margin-top: 20px;
-        }
-
-        .header h1 {
-            font-size: 2.8em;
-            margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .header p {
-            font-size: 1.3em;
-            opacity: 0.9;
-            margin-bottom: 20px;
-        }
-
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-
-        .stat-item {
-            background: rgba(255,255,255,0.2);
-            padding: 15px 25px;
-            border-radius: 25px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-        }
-
-        .stat-number {
-            font-size: 1.5em;
-            font-weight: bold;
-            display: block;
-        }
-
-        .stat-label {
-            font-size: 0.9em;
-            opacity: 0.8;
-        }
-
-        .content {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-        }
-
-        .method-selector {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 40px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .method-card {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border: 2px solid #e9ecef;
-            border-radius: 15px;
-            padding: 30px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            flex: 1;
-            min-width: 280px;
-            max-width: 350px;
-        }
-
-        .method-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-            border-color: #667eea;
-        }
-
-        .method-card.active {
-            border-color: #667eea;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .method-icon {
-            font-size: 3em;
-            margin-bottom: 15px;
-            display: block;
-        }
-
-        .method-title {
-            font-size: 1.4em;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .method-description {
-            opacity: 0.8;
-            line-height: 1.5;
-        }
-
-        .method-content {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .method-content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .step-container {
-            margin: 30px 0;
-        }
-
-        .step {
-            background: #f8f9fa;
-            border-left: 5px solid #667eea;
-            padding: 25px;
-            margin: 25px 0;
-            border-radius: 0 15px 15px 0;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-
-        .step:hover {
-            transform: translateX(5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .step-number {
-            position: absolute;
-            top: -15px;
-            left: -15px;
-            background: #667eea;
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.2em;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-
-        .step-title {
-            font-size: 1.4em;
-            font-weight: bold;
-            color: #667eea;
-            margin-bottom: 15px;
-            margin-left: 30px;
-        }
-
-        .step-content {
-            margin-left: 30px;
-            line-height: 1.8;
-        }
-
-        .path-visual {
-            background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
-            padding: 30px;
-            border-radius: 15px;
-            margin: 25px 0;
-            border: 2px dashed #667eea;
-        }
-
-        .path-visual h3 {
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 1.2em;
-        }
-
-        .path-steps {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .path-step {
-            background: white;
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-weight: 500;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            white-space: nowrap;
-        }
-
-        .path-arrow {
-            color: #667eea;
-            font-size: 1.2em;
-            font-weight: bold;
-        }
-
-        .options-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin: 25px 0;
-        }
-
-        .option-card {
-            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid #e9ecef;
-            transition: all 0.3s ease;
-        }
-
-        .option-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            border-color: #667eea;
-        }
-
-        .option-icon {
-            font-size: 2em;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .option-title {
-            font-weight: bold;
-            color: #667eea;
-            margin-bottom: 8px;
-        }
-
-        .option-description {
-            color: #6c757d;
-            font-size: 0.9em;
-            line-height: 1.5;
-        }
-
-        .code {
-            background: #f4f4f4;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-family: 'Monaco', 'Menlo', monospace;
-            color: #d63384;
-            font-weight: 500;
-        }
-
-        .tip {
-            background: #d1ecf1;
-            padding: 20px;
-            border-left: 4px solid #17a2b8;
-            margin: 20px 0;
-            border-radius: 0 8px 8px 0;
-        }
-
-        .tip h4 {
-            color: #17a2b8;
-            margin-bottom: 10px;
-        }
-
-        .warning {
-            background: #f8d7da;
-            padding: 20px;
-            border-left: 4px solid #dc3545;
-            margin: 20px 0;
-            border-radius: 0 8px 8px 0;
-        }
-
-        .warning h4 {
-            color: #dc3545;
-            margin-bottom: 10px;
-        }
-
-        .success {
-            background: #d4edda;
-            padding: 20px;
-            border-left: 4px solid #28a745;
-            margin: 20px 0;
-            border-radius: 0 8px 8px 0;
-        }
-
-        .success h4 {
-            color: #28a745;
-            margin-bottom: 10px;
-        }
-
-        .process-flow {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 15px;
-            margin: 30px 0;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .flow-step {
-            text-align: center;
-            flex: 1;
-            min-width: 150px;
-        }
-
-        .flow-icon {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .flow-title {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .flow-description {
-            font-size: 0.9em;
-            opacity: 0.9;
-        }
-
-        .flow-arrow {
-            font-size: 1.5em;
-            color: rgba(255,255,255,0.7);
-        }
-
-        .comparison-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 25px 0;
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .comparison-table th {
-            background: #667eea;
-            color: white;
-            padding: 15px;
-            text-align: left;
-            font-weight: 600;
-        }
-
-        .comparison-table td {
-            padding: 15px;
-            border-bottom: 1px solid #e9ecef;
-        }
-
-        .comparison-table tr:hover {
-            background: #f8f9fa;
-        }
-
-        .badge {
-            display: inline-block;
-            background: #667eea;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 0.8em;
-            font-weight: 500;
-        }
-
-        .badge.success {
-            background: #28a745;
-        }
-
-        .badge.warning {
-            background: #ffc107;
-            color: #333;
-        }
-
-        .badge.danger {
-            background: #dc3545;
-        }
-
-        .best-practices {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            padding: 30px;
-            border-radius: 15px;
-            margin: 30px 0;
-        }
-
-        .best-practices h3 {
-            color: #667eea;
-            margin-bottom: 20px;
-            font-size: 1.5em;
-        }
-
-        .practice-item {
-            background: white;
-            padding: 20px;
-            margin: 15px 0;
-            border-radius: 10px;
-            border-left: 4px solid #28a745;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .practice-item h4 {
-            color: #28a745;
-            margin-bottom: 10px;
-        }
-
-        /* Новые стили для изображений */
-        .screenshot-container {
-            margin: 30px 0;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 15px;
-            padding: 25px;
-            border: 2px solid #e9ecef;
-            text-align: center;
-        }
-
-        .screenshot-placeholder {
-            background: #ffffff;
-            border: 2px dashed #667eea;
-            border-radius: 10px;
-            padding: 60px 20px;
-            margin: 15px 0;
-            color: #667eea;
-            font-size: 1.1em;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .screenshot-placeholder:hover {
-            background: #f8f9fa;
-            border-color: #764ba2;
-            transform: translateY(-2px);
-        }
-
-        .screenshot-placeholder::before {
-            content: "📸";
-            font-size: 2em;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        .screenshot-title {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #667eea;
-            margin-bottom: 8px;
-        }
-
-        .screenshot-description {
-            color: #6c757d;
-            font-size: 0.9em;
-            line-height: 1.5;
-            margin-bottom: 15px;
-        }
-
-        .screenshot-filename {
-            background: #667eea;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.8em;
-            font-family: 'Monaco', 'Menlo', monospace;
-            display: inline-block;
-            margin-top: 10px;
-        }
-
-        .screenshot-small {
-            padding: 40px 15px;
-        }
-
-        .screenshot-small::before {
-            font-size: 1.5em;
-        }
-
-        .screenshot-wide {
-            min-height: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 10px;
-            }
-            
-            .content {
-                padding: 20px;
-            }
-            
-            .header h1 {
-                font-size: 2.2em;
-            }
-            
-            .method-selector {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .method-card {
-                max-width: 100%;
-            }
-            
-            .stats {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .path-steps {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            
-            .path-arrow {
-                transform: rotate(90deg);
-            }
-            
-            .process-flow {
-                flex-direction: column;
-            }
-            
-            .flow-arrow {
-                transform: rotate(90deg);
-            }
-
-            .back-button {
-                position: relative;
-                top: 0;
-                left: 0;
-                margin-bottom: 20px;
-                width: 100%;
-                justify-content: center;
-            }
-
-            .screenshot-container {
-                padding: 15px;
-            }
-
-            .screenshot-placeholder {
-                padding: 40px 15px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="assets/enrollment.css">
 </head>
 <body>
     <a href="index.html" class="back-button">
@@ -642,7 +36,7 @@
             <div class="tip">
                 <h4>💡 Кто может зачислять пользователей?</h4>
                 <p>Пользователи могут быть зачислены на курсы:</p>
-                <ul style="margin-left: 20px; margin-top: 10px;">
+                <ul class="inline-list">
                     <li><strong>Superadmin'ами</strong> - полный доступ ко всем функциям</li>
                     <li><strong>Power Users</strong> - с соответствующими разрешениями</li>
                     <li><strong>Самостоятельно</strong> - через self-enrollment</li>
@@ -658,15 +52,15 @@
                 <div class="screenshot-filename">admin-menu-main.png</div>
             </div>
 
-            <h2 style="color: #667eea; margin-bottom: 30px; font-size: 2em;">🎯 Выберите способ зачисления</h2>
+            <h2 class="section-heading">🎯 Выберите способ зачисления</h2>
 
             <div class="method-selector">
-                <div class="method-card active" onclick="showMethod('course-management')">
+                <div class="method-card active" data-method="course-management">
                     <span class="method-icon">📚</span>
                     <div class="method-title">Из Course Management</div>
                     <div class="method-description">Зачисление пользователей в конкретный курс или несколько курсов одновременно</div>
                 </div>
-                <div class="method-card" onclick="showMethod('user-management')">
+                <div class="method-card" data-method="user-management">
                     <span class="method-icon">👥</span>
                     <div class="method-title">Из User Management</div>
                     <div class="method-description">Зачисление выбранных пользователей на множество курсов</div>
@@ -675,7 +69,7 @@
 
             <!-- Course Management Method -->
             <div id="course-management" class="method-content active">
-                <h3 style="color: #667eea; margin-bottom: 20px;">📚 Зачисление через Course Management</h3>
+                <h3 class="method-heading">📚 Зачисление через Course Management</h3>
                 
                 <div class="path-visual">
                     <h3>🗺️ Путь навигации</h3>
@@ -769,7 +163,7 @@
                         <div class="step-title">Шаг Users - Выбор пользователей</div>
                         <div class="step-content">
                             <p>Выберите пользователей для зачисления одним из способов:</p>
-                            <ul style="margin-left: 20px; margin-top: 10px;">
+                            <ul class="inline-list">
                                 <li><strong>Индивидуальные пользователи</strong> - поставьте галочки напротив имен</li>
                                 <li><strong>Целые branches (отделы)</strong> - выберите из вкладки Branches</li>
                                 <li><strong>Группы пользователей</strong> - выберите из вкладки Groups</li>
@@ -824,7 +218,7 @@
                                 <div class="screenshot-filename">enrollment-step2-additional-info.png</div>
                             </div>
                             
-                            <h4 style="color: #667eea; margin: 15px 0 10px 0;">🎭 Роли в курсе</h4>
+                            <h4 class="option-heading">🎭 Роли в курсе</h4>
                             <div class="options-grid">
                                 <div class="option-card">
                                     <span class="option-icon">🎓</span>
@@ -852,7 +246,7 @@
                                 <div class="screenshot-filename">enrollment-roles-selection.png</div>
                             </div>
 
-                            <h4 style="color: #667eea; margin: 15px 0 10px 0;">📅 Период действия Enrollment</h4>
+                            <h4 class="option-heading">📅 Период действия Enrollment</h4>
                             <p>Опционально можно установить период, в течение которого пользователь будет иметь доступ к курсу. После окончания срока курс останется видимым, но недоступным для прохождения.</p>
 
                             <div class="screenshot-container">
@@ -864,7 +258,7 @@
                                 <div class="screenshot-filename">enrollment-validity-period.png</div>
                             </div>
 
-                            <h4 style="color: #667eea; margin: 15px 0 10px 0;">🔧 Дополнительные поля</h4>
+                            <h4 class="option-heading">🔧 Дополнительные поля</h4>
                             <p>Если курс имеет <span class="code">enrollment additional fields</span>, их необходимо заполнить. Все обязательные поля должны быть заполнены для продолжения.</p>
 
                             <div class="screenshot-container">
@@ -879,7 +273,7 @@
                             <div class="tip">
                                 <h4>💡 Enrollment Attributes</h4>
                                 <p>Если включена опция <span class="code">Show the Enrollment attributes</span>, можно настроить приоритет курса:</p>
-                                <ul style="margin-left: 20px; margin-top: 10px;">
+                                <ul class="inline-list">
                                     <li><span class="badge">Mandatory</span> - обязательный</li>
                                     <li><span class="badge warning">Required</span> - требуемый</li>
                                     <li><span class="badge success">Recommended</span> - рекомендуемый</li>
@@ -986,7 +380,7 @@
 
             <!-- User Management Method -->
             <div id="user-management" class="method-content">
-                <h3 style="color: #667eea; margin-bottom: 20px;">👥 Зачисление через User Management</h3>
+                <h3 class="method-heading">👥 Зачисление через User Management</h3>
                 
                 <div class="path-visual">
                     <h3>🗺️ Путь навигации</h3>
@@ -1053,7 +447,7 @@
                         <div class="step-title">Select User - Выбор пользователей</div>
                         <div class="step-content">
                             <p>Выберите пользователей, которых нужно зачислить:</p>
-                            <ul style="margin-left: 20px; margin-top: 10px;">
+                            <ul class="inline-list">
                                 <li>Индивидуальные пользователи</li>
                                 <li>Группы пользователей</li>
                                 <li>Branches (отделы)</li>
@@ -1075,7 +469,7 @@
                         <div class="step-title">Enroll Users in New Courses - Выбор курсов</div>
                         <div class="step-content">
                             <p>Выберите курсы, на которые нужно зачислить пользователей:</p>
-                            <ul style="margin-left: 20px; margin-top: 10px;">
+                            <ul class="inline-list">
                                 <li>Поставьте галочки напротив нужных курсов</li>
                                 <li>Используйте кнопку <span class="code">Select all</span> для выбора всех курсов на всех страницах</li>
                             </ul>
@@ -1096,7 +490,7 @@
                         <div class="step-title">Additional Information - Настройка параметров</div>
                         <div class="step-content">
                             <p>Настройте те же параметры, что и в Course Management:</p>
-                            <ul style="margin-left: 20px; margin-top: 10px;">
+                            <ul class="inline-list">
                                 <li>Роль в курсе (Learner, Tutor, Instructor)</li>
                                 <li>Период действия enrollment</li>
                                 <li>Приоритет курса (если доступно)</li>
@@ -1137,8 +531,8 @@
                 </div>
             </div>
 
-            <div class="comparison-table" style="margin-top: 40px;">
-                <h3 style="color: #667eea; margin-bottom: 20px;">📊 Сравнение методов зачисления</h3>
+            <div class="comparison-table comparison-block">
+                <h3 class="method-heading">📊 Сравнение методов зачисления</h3>
                 
                 <div class="screenshot-container">
                     <div class="screenshot-title">Сравнение интерфейсов</div>
@@ -1222,7 +616,7 @@
 
             <div class="warning">
                 <h4>⚠️ Важные ограничения</h4>
-                <ul style="margin-left: 20px; margin-top: 10px;">
+                <ul class="inline-list">
                     <li>Процесс зачисления на <strong>Instructor-Led Training (ILT)</strong> курсы отличается</li>
                     <li>Можно использовать <strong>CSV файлы</strong> для массового зачисления</li>
                     <li>При превышении 20 зачислений запускается background job</li>
@@ -1236,27 +630,6 @@
             </div>
         </div>
     </div>
-
-    <script>
-        function showMethod(methodId) {
-            // Hide all method contents
-            const contents = document.querySelectorAll('.method-content');
-            contents.forEach(content => {
-                content.classList.remove('active');
-            });
-            
-            // Remove active class from all method cards
-            const cards = document.querySelectorAll('.method-card');
-            cards.forEach(card => {
-                card.classList.remove('active');
-            });
-            
-            // Show selected method content
-            document.getElementById(methodId).classList.add('active');
-            
-            // Add active class to clicked card
-            event.target.closest('.method-card').classList.add('active');
-        }
-    </script>
+    <script src="assets/enrollment.js" defer></script>
 </body>
 </html>
