@@ -676,7 +676,7 @@
                 item.classList.remove('active');
             });
             document.querySelector('.menu-item[onclick="showHome()"]')?.classList.add('active');
-            
+
             closeSidebar();
         }
 
@@ -709,8 +709,13 @@
             if (menuItem) {
                 menuItem.classList.add('active');
             }
-            
+
             closeSidebar();
+        }
+
+        function getInitialGuideId() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('guide');
         }
 
         // Close tour on escape key
@@ -726,7 +731,13 @@
             changeLanguage(currentLanguage);
             setupImages();
             updateGuideStatus();
-            checkFirstVisit();
+
+            const initialGuideId = getInitialGuideId();
+            if (initialGuideId) {
+                showGuide(initialGuideId);
+            } else {
+                checkFirstVisit();
+            }
         });
 
         // Close sidebar when clicking on a menu item on mobile

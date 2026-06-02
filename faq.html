@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ / Частые вопросы по LMS</title>
+    <link rel="stylesheet" href="assets/faq.css">
+</head>
+<body>
+    <main class="page">
+        <a class="back-link" href="index.html">← Вернуться на главную</a>
+
+        <header class="hero" id="top">
+            <div>
+                <p class="eyebrow">Поддержка</p>
+                <h1>FAQ / Частые вопросы</h1>
+                <p class="hero-text">
+                    Короткие ответы на типовые вопросы по LMS: вход, курсы, материалы, зачисления, группы, уведомления и отчеты.
+                </p>
+            </div>
+            <div class="support-note">
+                <strong>Как пользоваться:</strong> если нужен быстрый ответ, откройте вопрос ниже. Если нужна пошаговая инструкция,
+                переходите по ссылке на соответствующий гайд.
+            </div>
+        </header>
+
+        <nav class="toc" aria-label="Разделы FAQ">
+            <a href="#access">Доступ</a>
+            <a href="#courses">Курсы</a>
+            <a href="#materials">Материалы</a>
+            <a href="#enrollment">Зачисления</a>
+            <a href="#groups">Группы</a>
+            <a href="#notifications">Уведомления</a>
+            <a href="#reports">Отчеты</a>
+            <a href="#troubleshooting">Проблемы</a>
+        </nav>
+
+        <section class="quick-actions" aria-label="Быстрые ссылки">
+            <a href="index.html?guide=browser-login" class="quick-link">
+                <span>🔐</span>
+                <strong>Вход в LMS</strong>
+                <small>браузер и мобильное приложение</small>
+            </a>
+            <a href="course-editing.html" class="quick-link">
+                <span>⚙️</span>
+                <strong>Управление курсами</strong>
+                <small>свойства, статус, learner view</small>
+            </a>
+            <a href="enrollment.html" class="quick-link">
+                <span>👥</span>
+                <strong>Зачисление участников</strong>
+                <small>курсы, роли и уведомления</small>
+            </a>
+            <a href="new-reports.html" class="quick-link">
+                <span>📈</span>
+                <strong>Новые отчеты</strong>
+                <small>создание, расписание, экспорт</small>
+            </a>
+        </section>
+
+        <section class="faq-section" id="access">
+            <div class="section-heading">
+                <span class="section-icon">🔐</span>
+                <div>
+                    <h2>Доступ и вход</h2>
+                    <p>Вопросы по входу через браузер, корпоративную учетную запись и мобильное приложение.</p>
+                </div>
+            </div>
+
+            <details class="faq-item" open>
+                <summary>Как войти в LMS через браузер?</summary>
+                <div class="answer">
+                    <p>
+                        Откройте сайт LMS, выберите язык интерфейса при необходимости и нажмите вход как сотрудник.
+                        Далее используйте корпоративную учетную запись Air Astana.
+                    </p>
+                    <a href="index.html?guide=browser-login" class="inline-link">Открыть гайд по входу</a>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>Как установить и настроить мобильное приложение?</summary>
+                <div class="answer">
+                    <p>
+                        Установите Go.Learn из App Store или Google Play, укажите Platform URL и войдите как сотрудник.
+                        После входа приложение сможет показывать назначенные курсы и push-уведомления.
+                    </p>
+                    <a href="index.html?guide=mobile-app" class="inline-link">Открыть гайд по мобильному приложению</a>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>Почему пользователь не может войти?</summary>
+                <div class="answer">
+                    <ul>
+                        <li>Проверьте, что пользователь использует корпоративную учетную запись.</li>
+                        <li>Убедитесь, что ссылка на платформу указана без ошибок.</li>
+                        <li>Если проблема только в мобильном приложении, проверьте Platform URL и попробуйте вход через браузер.</li>
+                        <li>Если ошибка повторяется, передайте в поддержку скриншот ошибки и email пользователя.</li>
+                    </ul>
+                </div>
+            </details>
+        </section>
+
+        <section class="faq-section" id="courses">
+            <div class="section-heading">
+                <span class="section-icon">⚙️</span>
+                <div>
+                    <h2>Курсы</h2>
+                    <p>Настройки уже созданных курсов, публикация, видимость и проверка курса глазами пользователя.</p>
+                </div>
+            </div>
+
+            <details class="faq-item" open>
+                <summary>Где менять настройки уже созданного курса?</summary>
+                <div class="answer">
+                    <p>
+                        Откройте Navigation menu → Content and delivery → Courses, найдите курс и перейдите в его настройки.
+                        Основные параметры находятся во вкладке Properties.
+                    </p>
+                    <a href="course-editing.html" class="inline-link">Открыть гайд по управлению курсами</a>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>Почему курс не виден пользователям?</summary>
+                <div class="answer">
+                    <ul>
+                        <li>Проверьте статус курса: для доступа он должен быть Published.</li>
+                        <li>Проверьте catalog, channel или learning plan, через который пользователь должен видеть курс.</li>
+                        <li>Убедитесь, что пользователь зачислен или имеет право self-enrollment.</li>
+                        <li>Проверьте даты доступности и enrollment-настройки курса.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>Как проверить курс перед запуском?</summary>
+                <div class="answer">
+                    <p>
+                        Проверьте Properties, статус Published, связи с каталогами или learning plans, затем откройте Learner view.
+                        Для финальной проверки лучше использовать отдельного тестового пользователя.
+                    </p>
+                </div>
+            </details>
+        </section>
+
+        <section class="faq-section" id="materials">
+            <div class="section-heading">
+                <span class="section-icon">📚</span>
+                <div>
+                    <h2>Учебные материалы</h2>
+                    <p>Загрузка, порядок, скрытие и предпосылки для материалов внутри курса.</p>
+                </div>
+            </div>
+
+            <details class="faq-item" open>
+                <summary>Как добавить учебный материал в курс?</summary>
+                <div class="answer">
+                    <p>
+                        Откройте курс, перейдите во вкладку Training material и добавьте нужный тип материала.
+                        В проекте уже есть отдельная пошаговая инструкция по загрузке материалов.
+                    </p>
+                    <a href="index.html?guide=upload-material" class="inline-link">Открыть гайд по загрузке материала</a>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>Можно ли менять порядок материалов?</summary>
+                <div class="answer">
+                    <p>
+                        Да. В разделе Training material материалы можно перетаскивать, настраивать видимость,
+                        prerequisites и дополнительные параметры прохождения.
+                    </p>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>Почему материал не доступен пользователю?</summary>
+                <div class="answer">
+                    <ul>
+                        <li>Материал может быть скрыт настройками visibility.</li>
+                        <li>Могут быть включены prerequisites.</li>
+                        <li>Курс может быть не опубликован или пользователь не зачислен.</li>
+                        <li>Проверьте learner view и тестового пользователя с такой же ролью.</li>
+                    </ul>
+                </div>
+            </details>
+        </section>
+
+        <section class="faq-section" id="enrollment">
+            <div class="section-heading">
+                <span class="section-icon">👥</span>
+                <div>
+                    <h2>Зачисления</h2>
+                    <p>Добавление пользователей на курсы, роли, массовое зачисление и уведомления при enrollment.</p>
+                </div>
+            </div>
+
+            <details class="faq-item" open>
+                <summary>Как зачислить участников на курс или тренинг?</summary>
+                <div class="answer">
+                    <p>
+                        Используйте enrollment-инструкцию: она описывает зачисление через Course management,
+                        User management, массовые действия, роли и уведомления.
+                    </p>
+                    <a href="enrollment.html" class="inline-link">Открыть гайд по зачислению</a>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>Какую роль выбрать при зачислении?</summary>
+                <div class="answer">
+                    <p>
+                        Для обычного участника выбирайте Learner. Роли Instructor и Tutor используйте только для пользователей,
+                        которые должны вести, проверять или администрировать обучение.
+                    </p>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>Почему уведомление о зачислении не отправилось?</summary>
+                <div class="answer">
+                    <ul>
+                        <li>Проверьте, включен ли шаг Notifications при массовом enrollment.</li>
+                        <li>Проверьте, выбрано ли правильное уведомление для пользователей или менеджеров.</li>
+                        <li>Убедитесь, что trigger filters уведомления подходят под курс, branch и пользователей.</li>
+                        <li>Проверьте настройки самого уведомления и способ доставки Email.</li>
+                    </ul>
+                </div>
+            </details>
+        </section>
+
+        <section class="faq-section" id="groups">
+            <div class="section-heading">
+                <span class="section-icon">🏷️</span>
+                <div>
+                    <h2>Группы</h2>
+                    <p>Ручные и автоматические группы, правила добавления и проверка состава группы.</p>
+                </div>
+            </div>
+
+            <details class="faq-item" open>
+                <summary>Чем ручная группа отличается от автоматической?</summary>
+                <div class="answer">
+                    <p>
+                        В ручную группу пользователей добавляют вручную. Автоматическая группа пополняется по правилам,
+                        например по branch, additional fields или другим условиям.
+                    </p>
+                    <a href="groups.html" class="inline-link">Открыть гайд по группам</a>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>Почему пользователь не попал в автоматическую группу?</summary>
+                <div class="answer">
+                    <ul>
+                        <li>Проверьте, активна ли группа.</li>
+                        <li>Проверьте условия eligibility и логику AND / OR.</li>
+                        <li>Убедитесь, что в профиле пользователя заполнены поля, по которым строится правило.</li>
+                        <li>Подождите обновления или вручную проверьте состав группы после сохранения правил.</li>
+                    </ul>
+                </div>
+            </details>
+        </section>
+
+        <section class="faq-section" id="notifications">
+            <div class="section-heading">
+                <span class="section-icon">🔔</span>
+                <div>
+                    <h2>Уведомления</h2>
+                    <p>Создание уведомлений, email-настройки, короткие коды и выбор получателей.</p>
+                </div>
+            </div>
+
+            <details class="faq-item" open>
+                <summary>Как создать уведомление?</summary>
+                <div class="answer">
+                    <p>
+                        Откройте Admin menu → Notifications, создайте новое уведомление, выберите событие,
+                        настройте email, языковые версии, короткие коды, время отправки и получателей.
+                    </p>
+                    <a href="index.html?guide=create-notification" class="inline-link">Открыть гайд по созданию уведомления</a>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>Какой email указывать в поле From?</summary>
+                <div class="answer">
+                    <p>
+                        Используйте <strong>noreply@elearning.airastana.com</strong>. С другого адреса письма могут не отправляться.
+                    </p>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>Зачем заполнять несколько языков уведомления?</summary>
+                <div class="answer">
+                    <p>
+                        Пользователь получает уведомление на языке своего профиля. Если язык выбран некорректно,
+                        удобнее продублировать важный текст на двух языках в каждой версии письма.
+                    </p>
+                </div>
+            </details>
+        </section>
+
+        <section class="faq-section" id="reports">
+            <div class="section-heading">
+                <span class="section-icon">📊</span>
+                <div>
+                    <h2>Отчеты</h2>
+                    <p>Старые и новые отчеты, экспорт, расписание и частые причины расхождений в данных.</p>
+                </div>
+            </div>
+
+            <details class="faq-item" open>
+                <summary>Где смотреть инструкцию по новым отчетам?</summary>
+                <div class="answer">
+                    <p>
+                        Для новых отчетов используйте отдельную страницу: там описаны Reports, Custom reports builder,
+                        фильтры, preview, schedule и export.
+                    </p>
+                    <a href="new-reports.html" class="inline-link">Открыть гайд по новым отчетам</a>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>Почему в отчете нет свежих данных?</summary>
+                <div class="answer">
+                    <p>
+                        Данные отчетов могут обновляться в фоне не мгновенно. Если действие произошло недавно,
+                        подождите обновления данных и повторите preview или export.
+                    </p>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>Чем старые отчеты отличаются от новых?</summary>
+                <div class="answer">
+                    <p>
+                        Старый гайд описывает привычную выгрузку отчетов о прогрессе. Новые отчеты используют Reports и Custom reports builder,
+                        где можно точнее управлять фильтрами, колонками, расписанием и экспортом.
+                    </p>
+                    <a href="https://kcsystemhub.github.io/lms-old-reports/" target="_blank" rel="noopener noreferrer" class="inline-link">Открыть гайд по старым отчетам</a>
+                </div>
+            </details>
+        </section>
+
+        <section class="faq-section" id="troubleshooting">
+            <div class="section-heading">
+                <span class="section-icon">🧭</span>
+                <div>
+                    <h2>Быстрая диагностика</h2>
+                    <p>Что проверить перед обращением в поддержку.</p>
+                </div>
+            </div>
+
+            <details class="faq-item" open>
+                <summary>Какие данные передавать в поддержку?</summary>
+                <div class="answer">
+                    <ul>
+                        <li>Email пользователя и его роль в LMS.</li>
+                        <li>Название и код курса, группы, отчета или уведомления.</li>
+                        <li>Скриншот ошибки и время, когда она появилась.</li>
+                        <li>Что уже проверили: статус курса, enrollment, права, фильтры, настройки уведомления.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>Что проверить, если “у пользователя не работает курс”?</summary>
+                <div class="answer">
+                    <ul>
+                        <li>Пользователь может войти в LMS.</li>
+                        <li>Курс опубликован и пользователь зачислен.</li>
+                        <li>Материал не скрыт и нет невыполненных prerequisites.</li>
+                        <li>Нет ограничений по датам доступности.</li>
+                        <li>Проблема повторяется в другом браузере или на другом устройстве.</li>
+                    </ul>
+                </div>
+            </details>
+        </section>
+
+        <footer class="source-footer">
+            FAQ составлен по существующим гайдам LMS: вход, мобильное приложение, создание курсов, учебные материалы,
+            уведомления, зачисления, группы, управление курсами и отчеты.
+        </footer>
+    </main>
+</body>
+</html>
