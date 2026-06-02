@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новые отчеты в Docebo - Инструкция</title>
+    <link rel="stylesheet" href="assets/new-reports.css">
+</head>
+<body>
+    <main class="page">
+        <a class="back-link" href="index.html">← Вернуться на главную</a>
+
+        <header class="hero" id="top">
+            <div class="hero-content">
+                <p class="eyebrow">Отчетность</p>
+                <h1>Новые отчеты в Docebo</h1>
+                <p class="hero-text">
+                    Инструкция по созданию, настройке, планированию и выгрузке пользовательских отчетов в разделе Reports.
+                </p>
+            </div>
+            <div class="hero-note">
+                <strong>Важно:</strong> в актуальной документации Docebo раздел New reports называется Reports.
+                В старых интерфейсах LMS название может отличаться, но логика работы с отчетами остается такой же.
+            </div>
+        </header>
+
+        <nav class="toc" aria-label="Навигация по инструкции">
+            <a href="#open-reports">Открыть Reports</a>
+            <a href="#create-report">Создать отчет</a>
+            <a href="#properties">Свойства</a>
+            <a href="#filters-view">Фильтры и вид</a>
+            <a href="#schedule">Расписание</a>
+            <a href="#preview-export">Просмотр и экспорт</a>
+            <a href="#best-practices">Рекомендации</a>
+        </nav>
+
+        <section class="summary-grid" aria-label="Краткая сводка">
+            <div class="summary-item">
+                <span class="summary-label">Кто настраивает</span>
+                <strong>Superadmin или Power User с правами Reports</strong>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">Где находится</span>
+                <strong>Navigation menu → Data and analytics → Reports</strong>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">Что можно сделать</span>
+                <strong>Создать, отфильтровать, запланировать, просмотреть и экспортировать отчет</strong>
+            </div>
+        </section>
+
+        <section class="guide-section" id="open-reports">
+            <div class="section-heading">
+                <span class="step-number">1</span>
+                <div>
+                    <h2>Откройте раздел Reports</h2>
+                    <p>Войдите в платформу с правами администратора. Откройте меню навигации, перейдите в блок Data and analytics и выберите Reports.</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <p>
+                    На странице Reports перейдите на вкладку <strong>Custom reports builder</strong>. Здесь отображается список созданных отчетов:
+                    их можно искать, фильтровать по типу, расписанию и данным создания, а также управлять ими через меню с тремя точками.
+                </p>
+                <ul class="check-list">
+                    <li><strong>Preview</strong> - предварительный просмотр отчета.</li>
+                    <li><strong>Schedule / Pause schedule</strong> - включение или остановка автоматической отправки.</li>
+                    <li><strong>Duplicate</strong> - копирование отчета для новой настройки.</li>
+                    <li><strong>Export, Edit, Delete</strong> - выгрузка, редактирование или удаление.</li>
+                </ul>
+            </div>
+
+            <figure class="screenshot">
+                <img loading="lazy" decoding="async" src="images/docebo-reports-builder-list.png" alt="Список отчетов Custom reports builder в Docebo">
+                <figcaption>Вкладка Custom reports builder и список пользовательских отчетов.</figcaption>
+            </figure>
+        </section>
+
+        <section class="guide-section" id="create-report">
+            <div class="section-heading">
+                <span class="step-number">2</span>
+                <div>
+                    <h2>Создайте новый пользовательский отчет</h2>
+                    <p>Нажмите кнопку с плюсом в правом верхнем углу страницы Reports.</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <ol class="ordered-list">
+                    <li>В панели <strong>Create a new custom report</strong> выберите тип отчета.</li>
+                    <li>Нажмите <strong>Next</strong>, чтобы перейти к деталям.</li>
+                    <li>Введите название отчета. Описание можно заполнить при необходимости.</li>
+                    <li>Нажмите <strong>Create and edit</strong>, чтобы открыть настройки отчета.</li>
+                </ol>
+                <div class="warning-note">
+                    <strong>Название отчета:</strong> не используйте специальные символы. Допустим только символ подчеркивания.
+                    Для CSV название может быть преобразовано в латиницу.
+                </div>
+            </div>
+        </section>
+
+        <section class="guide-section" id="properties">
+            <div class="section-heading">
+                <span class="step-number">3</span>
+                <div>
+                    <h2>Настройте свойства отчета</h2>
+                    <p>После создания откроется страница отчета с вкладками Properties, Filters, View options, Schedule и Preview.</p>
+                </div>
+            </div>
+
+            <div class="content-block split">
+                <div>
+                    <h3>Что проверить во вкладке Properties</h3>
+                    <ul class="check-list">
+                        <li><strong>Report info</strong> - название и описание можно изменить, тип отчета остается неизменным.</li>
+                        <li><strong>Login required to download the report</strong> - оставляйте включенным для защиты ссылки на выгрузку.</li>
+                        <li><strong>Time zone for date fields</strong> - укажите часовой пояс, в котором нужно отображать даты.</li>
+                        <li><strong>Visibility</strong> - выберите, кому будет виден отчет в списке Reports.</li>
+                    </ul>
+                </div>
+                <div class="info-note">
+                    Если отключить требование входа для скачивания, любой человек с ссылкой сможет скачать отчет.
+                    Для отчетов с персональными или чувствительными данными эту опцию лучше не отключать.
+                </div>
+            </div>
+
+            <figure class="screenshot">
+                <img loading="lazy" decoding="async" src="images/docebo-reports-properties.png" alt="Вкладка Properties пользовательского отчета в Docebo">
+                <figcaption>Вкладка Properties: информация об отчете, доступ к ссылке, часовой пояс и видимость.</figcaption>
+            </figure>
+        </section>
+
+        <section class="guide-section" id="filters-view">
+            <div class="section-heading">
+                <span class="step-number">4</span>
+                <div>
+                    <h2>Настройте фильтры и отображение данных</h2>
+                    <p>Фильтры определяют, какие данные попадут в отчет, а View options - какие колонки будут показаны.</p>
+                </div>
+            </div>
+
+            <div class="content-block columns">
+                <div>
+                    <h3>Filters</h3>
+                    <p>
+                        Ограничьте выборку нужными пользователями, курсами, группами, ветками, датами или другими параметрами,
+                        доступными для выбранного типа отчета.
+                    </p>
+                </div>
+                <div>
+                    <h3>View options</h3>
+                    <p>
+                        Выберите поля, порядок колонок и сортировку. Чем меньше лишних колонок и фильтров, тем быстрее будет работать preview и экспорт.
+                    </p>
+                </div>
+            </div>
+
+            <div class="tip-note">
+                Для отчетов по всем пользователям удобнее выбирать корневую ветку, а не добавлять каждого пользователя отдельно.
+                Тогда новые пользователи будут попадать в отчет без ручного обновления выборки.
+            </div>
+        </section>
+
+        <section class="guide-section" id="schedule">
+            <div class="section-heading">
+                <span class="step-number">5</span>
+                <div>
+                    <h2>Настройте автоматическую отправку</h2>
+                    <p>Перейдите во вкладку Schedule и включите переключатель Enable scheduling for this report.</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <ul class="check-list">
+                    <li>Выберите периодичность: ежедневно, еженедельно или ежемесячно.</li>
+                    <li>Укажите дату и время старта, а также часовой пояс.</li>
+                    <li>Добавьте получателей. В Docebo можно указать до 25 email-адресов.</li>
+                    <li>Сохраните изменения внизу страницы.</li>
+                </ul>
+                <div class="warning-note">
+                    Запланированный отчет отправляется ссылкой на скачивание, а не вложением. Ссылка действует один месяц.
+                    Данные в запланированном отчете зависят от настроек отчета и могут быть шире, чем видимость отдельных получателей.
+                </div>
+            </div>
+
+            <figure class="screenshot">
+                <img loading="lazy" decoding="async" src="images/docebo-reports-schedule.png" alt="Вкладка Schedule для автоматической отправки отчета Docebo">
+                <figcaption>Вкладка Schedule: периодичность, дата запуска, часовой пояс и получатели.</figcaption>
+            </figure>
+        </section>
+
+        <section class="guide-section" id="preview-export">
+            <div class="section-heading">
+                <span class="step-number">6</span>
+                <div>
+                    <h2>Проверьте preview и выгрузите отчет</h2>
+                    <p>Перед экспортом откройте вкладку Preview и проверьте, что фильтры и колонки дают нужный результат.</p>
+                </div>
+            </div>
+
+            <div class="content-block split">
+                <div>
+                    <h3>Preview</h3>
+                    <p>
+                        Предпросмотр показывает первые 100 строк. Если отчет слишком сложный и preview не загружается,
+                        временно упростите фильтры или набор колонок, проверьте результат и затем верните нужные настройки.
+                    </p>
+                </div>
+                <div>
+                    <h3>Export</h3>
+                    <p>
+                        Экспорт запускается из кнопки в отчете или через меню с тремя точками в списке отчетов.
+                        Доступны CSV и XLS. Выгрузка выполняется как background job, после завершения придет уведомление.
+                    </p>
+                </div>
+            </div>
+
+            <figure class="screenshot">
+                <img loading="lazy" decoding="async" src="images/docebo-reports-export.png" alt="Экспорт пользовательского отчета Docebo">
+                <figcaption>Экспорт отчета из меню действий: CSV или XLS.</figcaption>
+            </figure>
+        </section>
+
+        <section class="guide-section" id="best-practices">
+            <div class="section-heading">
+                <span class="step-number">7</span>
+                <div>
+                    <h2>Рекомендации перед использованием</h2>
+                    <p>Эти настройки снижают риск неверных данных и случайного доступа к отчетам.</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <ul class="check-list">
+                    <li>Данные отчетов обновляются в фоне примерно раз в час, поэтому данные предыдущего часа доступны не сразу. Для ручного экспорта выбирайте время ближе к половине часа.</li>
+                    <li>Для Power Users создавайте отдельные отчеты и расписания по их зоне ответственности, чтобы не раскрывать лишние данные.</li>
+                    <li>Если владелец расписания деактивирован или потерял права, расписание может перестать работать. В таком случае продублируйте отчет от активного пользователя с нужными правами.</li>
+                    <li>Для экспорта должна быть включена Notifications app, иначе уведомления о background job могут не работать корректно.</li>
+                    <li>Если отчет содержит чувствительные данные, не отключайте вход по логину для скачивания и дождитесь истечения старых ссылок перед изменением политики доступа.</li>
+                </ul>
+            </div>
+        </section>
+
+        <footer class="source-footer">
+            Инструкция подготовлена по материалам Docebo Help:
+            <a href="https://help.docebo.com/hc/en-us/articles/360020124159-Creating-and-managing-custom-reports" target="_blank" rel="noopener noreferrer">
+                Creating and managing custom reports
+            </a>.
+        </footer>
+    </main>
+</body>
+</html>
