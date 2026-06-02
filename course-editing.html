@@ -3,35 +3,306 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maintenance - В разработке</title>
+    <title>Управление курсами в Docebo</title>
     <link rel="stylesheet" href="assets/course-editing.css">
 </head>
 <body>
-    <div class="maintenance-container">
-        <div class="maintenance-icon">🔧</div>
-        
-        <h1 class="maintenance-title">В разработке</h1>
-        
-        <p class="maintenance-description">
-            Сайт находится на техническом обслуживании
-        </p>
-        
-        <div class="status-block">
-            <div class="status-text">
-                <strong>📚 Гайды находятся в разработке</strong>
+    <main class="page">
+        <a class="back-link" href="index.html">← Вернуться на главную</a>
+
+        <header class="hero" id="top">
+            <div class="hero-copy">
+                <p class="eyebrow">Администрирование</p>
+                <h1>Управление курсами в Docebo</h1>
+                <p>
+                    Инструкция для работы с уже созданными курсами: поиск курса, свойства, публикация,
+                    enrollment-настройки, связи с каталогами и каналами, отчеты, дублирование, удаление и проверка learner view.
+                </p>
             </div>
-            <div class="status-text">
-                Мы работаем над созданием полезных материалов для вас
+            <div class="scope-note">
+                <strong>Что не входит:</strong> создание нового курса и загрузка учебных материалов описаны в отдельных гайдах,
+                поэтому здесь эти шаги не повторяются.
             </div>
-        </div>
-        
-        <a href="index.html" class="home-button">
-            🏠 Вернуться на главную
-        </a>
-        
-        <div class="maintenance-footer">
-            Спасибо за ваше терпение!
-        </div>
-    </div>
+        </header>
+
+        <nav class="toc" aria-label="Навигация по странице">
+            <a href="#open-course">Открыть курс</a>
+            <a href="#properties">Свойства</a>
+            <a href="#enrollment">Enrollment</a>
+            <a href="#associations">Связи</a>
+            <a href="#status">Статус</a>
+            <a href="#reports">Отчеты</a>
+            <a href="#duplicate-delete">Дублирование</a>
+            <a href="#learner-view">Learner view</a>
+        </nav>
+
+        <section class="quick-grid" aria-label="Краткая сводка">
+            <div class="quick-item">
+                <span>Где находится</span>
+                <strong>Navigation menu → Content and delivery → Courses</strong>
+            </div>
+            <div class="quick-item">
+                <span>Кто работает</span>
+                <strong>Superadmin или Power User с правами на курс</strong>
+            </div>
+            <div class="quick-item">
+                <span>Главная проверка</span>
+                <strong>Перед публикацией проверьте статус, доступность и learner view</strong>
+            </div>
+        </section>
+
+        <section class="guide-section" id="open-course">
+            <div class="section-heading">
+                <span class="step-number">1</span>
+                <div>
+                    <h2>Откройте нужный курс</h2>
+                    <p>Перейдите в раздел Courses и найдите курс по названию, коду, категории, статусу или другим доступным фильтрам.</p>
+                </div>
+            </div>
+
+            <div class="content-block split">
+                <div>
+                    <h3>Как перейти к настройкам</h3>
+                    <ol class="ordered-list">
+                        <li>Откройте Navigation menu.</li>
+                        <li>Перейдите в Content and delivery.</li>
+                        <li>Выберите Courses.</li>
+                        <li>Найдите курс в списке и откройте его по названию или через меню действий.</li>
+                    </ol>
+                </div>
+                <div class="note">
+                    На странице Courses можно быстро менять статус публикации, выполнять массовые действия,
+                    открывать редактирование, дублировать или удалять курс через меню с тремя точками.
+                </div>
+            </div>
+
+            <figure class="screenshot">
+                <img loading="lazy" decoding="async" src="images/docebo-course-list.png" alt="Список курсов в Docebo">
+                <figcaption>Страница Courses: список курсов, статусы, фильтры и меню действий.</figcaption>
+            </figure>
+        </section>
+
+        <section class="guide-section" id="properties">
+            <div class="section-heading">
+                <span class="step-number">2</span>
+                <div>
+                    <h2>Проверьте Properties</h2>
+                    <p>Во вкладке Properties собраны основные настройки курса. Не меняйте все подряд: сначала определите, что именно нужно исправить.</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <div class="columns">
+                    <div>
+                        <h3>Summary and languages</h3>
+                        <p>
+                            Проверьте название, описание, short description и переводы. Для пользователей текст будет показан на языке,
+                            который доступен в настройках курса; если перевода нет, Docebo использует язык по умолчанию.
+                        </p>
+                    </div>
+                    <div>
+                        <h3>Details</h3>
+                        <p>
+                            Проверьте код курса, категорию, автора, дату создания и дату последнего обновления.
+                            Тип курса и внутренний ID не редактируются.
+                        </p>
+                    </div>
+                    <div>
+                        <h3>General settings</h3>
+                        <p>
+                            Настройте thumbnail, header layout, skills, additional fields, time options, navigation,
+                            player, certificate templates, catalog options и score/credits по требованиям курса.
+                        </p>
+                    </div>
+                    <div>
+                        <h3>Editing restrictions</h3>
+                        <p>
+                            Если курс должен редактироваться только Superadmin, включите запрет на изменение свойств и training material
+                            для instructors и Power Users.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <figure class="screenshot">
+                <img loading="lazy" decoding="async" src="images/docebo-course-properties-summary.png" alt="Вкладка Properties курса в Docebo">
+                <figcaption>Properties: summary, language settings и основные вертикальные вкладки настроек.</figcaption>
+            </figure>
+
+            <figure class="screenshot compact-shot">
+                <img loading="lazy" decoding="async" src="images/docebo-course-editing-restrictions.png" alt="Ограничения редактирования курса в Docebo">
+                <figcaption>Course editing restrictions: запрет редактирования свойств курса для instructors и Power Users.</figcaption>
+            </figure>
+        </section>
+
+        <section class="guide-section" id="enrollment">
+            <div class="section-heading">
+                <span class="step-number">3</span>
+                <div>
+                    <h2>Настройте enrollment-поведение</h2>
+                    <p>Раздел Enrollment options определяет, как пользователи могут попасть на курс и могут ли они самостоятельно отписаться.</p>
+                </div>
+            </div>
+
+            <div class="content-block split">
+                <div>
+                    <h3>Что проверить</h3>
+                    <ul class="check-list">
+                        <li><strong>Self-unenrollment:</strong> можно ли пользователю самостоятельно выйти из курса.</li>
+                        <li><strong>Enrollment link:</strong> нужна ли ссылка для самостоятельной записи.</li>
+                        <li><strong>Enrollment code:</strong> нужен ли код записи через соответствующий виджет.</li>
+                        <li><strong>Quick enrollment:</strong> должен ли пользователь сразу попадать в player после записи.</li>
+                    </ul>
+                </div>
+                <div class="warning">
+                    Если курс входит в learning plan, self-unenrollment может не сработать так, как в отдельном курсе.
+                    Для критичных курсов проверьте поведение на тестовом пользователе.
+                </div>
+            </div>
+
+            <figure class="screenshot">
+                <img loading="lazy" decoding="async" src="images/docebo-course-enrollment-options.png" alt="Enrollment options курса в Docebo">
+                <figcaption>Enrollment options: self-unenrollment, enrollment link, enrollment code и quick enrollment.</figcaption>
+            </figure>
+        </section>
+
+        <section class="guide-section" id="associations">
+            <div class="section-heading">
+                <span class="step-number">4</span>
+                <div>
+                    <h2>Проверьте связи курса</h2>
+                    <p>У курса могут быть связи с learning plans, catalogs и channels. Эти связи влияют на доступность и отображение курса.</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <ul class="check-list">
+                    <li>Для добавления связи откройте курс, нажмите кнопку с плюсом и выберите Assign to learning plans, Assign to catalogs или Assign to channels.</li>
+                    <li>Для удаления связи откройте соответствующую вкладку курса и используйте Unassign в меню строки.</li>
+                    <li>Power Users видят только те catalogs и learning plans, на которые у них есть права.</li>
+                </ul>
+            </div>
+
+            <figure class="screenshot">
+                <img loading="lazy" decoding="async" src="images/docebo-course-associations.png" alt="Назначение курса в learning plans, catalogs и channels в Docebo">
+                <figcaption>Меню назначения курса в learning plans, catalogs и channels.</figcaption>
+            </figure>
+        </section>
+
+        <section class="guide-section" id="status">
+            <div class="section-heading">
+                <span class="step-number">5</span>
+                <div>
+                    <h2>Опубликуйте или снимите курс с публикации</h2>
+                    <p>Новый курс обычно находится в статусе Under maintenance и не виден пользователям. Для доступа learners переведите его в Published.</p>
+                </div>
+            </div>
+
+            <div class="content-block split">
+                <div>
+                    <h3>Через страницу курса</h3>
+                    <p>
+                        Внизу страницы редактирования выберите нужный Status и нажмите Save changes.
+                        Используйте этот способ, когда параллельно меняете свойства курса.
+                    </p>
+                </div>
+                <div>
+                    <h3>Через список Courses</h3>
+                    <p>
+                        В списке Courses используйте переключатель или массовое действие Change status.
+                        Это удобно, если нужно быстро опубликовать или скрыть несколько курсов.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="guide-section" id="reports">
+            <div class="section-heading">
+                <span class="step-number">6</span>
+                <div>
+                    <h2>Откройте Reports внутри курса</h2>
+                    <p>Во вкладке Reports можно проверить прогресс пользователей, статистику по курсу и training materials, а также assignments.</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <ul class="check-list">
+                    <li>Используйте Reports перед закрытием курса, чтобы убедиться, что нет ошибочных незавершенных записей.</li>
+                    <li>Сравнивайте результаты с настройками Score and credits, если итоговый score берется из конкретного материала или считается по всем материалам.</li>
+                    <li>Если пользователи self-unenroll из курса, их tracking data может перестать отображаться в course report.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="guide-section" id="duplicate-delete">
+            <div class="section-heading">
+                <span class="step-number">7</span>
+                <div>
+                    <h2>Дублируйте или удаляйте курс аккуратно</h2>
+                    <p>Дублирование полезно для повторного запуска похожего курса. Удаление необратимо влияет на tracking data и связи курса.</p>
+                </div>
+            </div>
+
+            <div class="content-block split">
+                <div>
+                    <h3>Duplicate</h3>
+                    <ul class="check-list">
+                        <li>Откройте меню с тремя точками в строке курса и выберите Duplicate.</li>
+                        <li>Введите новое название курса.</li>
+                        <li>Выберите, копировать ли training material, widgets и enrollments.</li>
+                        <li>Проверьте обязательные additional fields, если они есть в платформе.</li>
+                    </ul>
+                </div>
+                <div class="danger">
+                    <strong>Delete:</strong> при удалении курса теряются trackings, курс удаляется из catalogs, certifications,
+                    channels, subscription plans и learning plans. Если курс используется в условиях автоматических групп,
+                    сначала удалите эту зависимость.
+                </div>
+            </div>
+
+            <figure class="screenshot">
+                <img loading="lazy" decoding="async" src="images/docebo-course-duplicate.png" alt="Дублирование курса в Docebo">
+                <figcaption>Duplicate: выбор названия и опций копирования курса.</figcaption>
+            </figure>
+        </section>
+
+        <section class="guide-section" id="learner-view">
+            <div class="section-heading">
+                <span class="step-number">8</span>
+                <div>
+                    <h2>Проверьте Learner view перед запуском</h2>
+                    <p>После настройки курса откройте Learner view и проверьте, как курс выглядит для пользователя.</p>
+                </div>
+            </div>
+
+            <div class="content-block split">
+                <div>
+                    <h3>Что проверить глазами пользователя</h3>
+                    <ul class="check-list">
+                        <li>Название, описание, thumbnail и header.</li>
+                        <li>Отображение course widgets и важной информации.</li>
+                        <li>Доступность материалов, навигация и порядок прохождения.</li>
+                        <li>Поведение enrollment, если включены catalog access, enrollment link или quick enrollment.</li>
+                    </ul>
+                </div>
+                <div class="warning">
+                    При открытии Learner view Superadmin или Power User может быть автоматически зачислен на курс.
+                    Если это нежелательно, используйте отдельного тестового пользователя.
+                </div>
+            </div>
+
+            <figure class="screenshot">
+                <img loading="lazy" decoding="async" src="images/docebo-course-learner-view.png" alt="Learner view курса в Docebo">
+                <figcaption>Learner view: итоговая проверка курса перед публикацией или рассылкой ссылки.</figcaption>
+            </figure>
+        </section>
+
+        <footer class="source-footer">
+            Источники Docebo Help:
+            <a href="https://help.docebo.com/hc/en-us/articles/360020080300-Creating-and-managing-e-learning-courses" target="_blank" rel="noopener noreferrer">Creating and managing e-learning courses</a>
+            и
+            <a href="https://help.docebo.com/hc/en-us/articles/360020128759-Managing-properties-for-courses" target="_blank" rel="noopener noreferrer">Managing properties for courses</a>.
+        </footer>
+    </main>
 </body>
 </html>
