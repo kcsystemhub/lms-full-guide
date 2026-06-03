@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сертификаты в Docebo - Инструкция</title>
+    <link rel="stylesheet" href="assets/certificates.css">
+</head>
+<body>
+    <main class="page">
+        <a class="back-link" href="index.html">← Вернуться на главную</a>
+
+        <header class="hero" id="top">
+            <div class="hero-copy">
+                <p class="eyebrow">Сертификация</p>
+                <h1>Сертификаты в Docebo</h1>
+                <p>
+                    Инструкция по созданию шаблонов сертификатов, настройке динамических тегов,
+                    привязке сертификатов к курсам и learning plans, выдаче, скачиванию и обновлению выданных сертификатов.
+                </p>
+            </div>
+            <div class="hero-note">
+                <strong>Важно:</strong> сертификат выдается автоматически после завершения курса или learning plan,
+                если к ним заранее привязан certificate template.
+            </div>
+        </header>
+
+        <nav class="toc" aria-label="Навигация по инструкции">
+            <a href="#concept">Что такое сертификат</a>
+            <a href="#template">Создать шаблон</a>
+            <a href="#layout">Макет и теги</a>
+            <a href="#course">Привязать к курсу</a>
+            <a href="#learning-plan">Learning plan</a>
+            <a href="#issue-download">Выдать и скачать</a>
+            <a href="#update-delete">Обновить или удалить</a>
+            <a href="#checklist">Чеклист</a>
+        </nav>
+
+        <section class="quick-grid" aria-label="Краткая сводка">
+            <div class="quick-item">
+                <span>Где создавать шаблоны</span>
+                <strong>Navigation menu → Content and delivery → Certificates</strong>
+            </div>
+            <div class="quick-item">
+                <span>Где привязать к курсу</span>
+                <strong>Course → Properties → Certificate templates</strong>
+            </div>
+            <div class="quick-item">
+                <span>Формат выдачи</span>
+                <strong>PDF после завершения курса или learning plan</strong>
+            </div>
+        </section>
+
+        <section class="guide-section" id="concept">
+            <div class="section-heading">
+                <span class="step-number">1</span>
+                <div>
+                    <h2>Определите, что именно нужно выдать</h2>
+                    <p>Сертификаты и certifications в Docebo похожи по названию, но решают разные задачи.</p>
+                </div>
+            </div>
+
+            <div class="content-block columns">
+                <div>
+                    <h3>Certificate</h3>
+                    <p>
+                        Подтверждает завершение конкретного курса или learning plan. Обычно не требует отдельного процесса продления.
+                        В этом гайде описана именно настройка certificates.
+                    </p>
+                </div>
+                <div>
+                    <h3>Certification</h3>
+                    <p>
+                        Используется для программ с валидностью, сроком истечения и retraining.
+                        Для этого нужен отдельный процесс через Certifications & retraining app.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="guide-section" id="template">
+            <div class="section-heading">
+                <span class="step-number">2</span>
+                <div>
+                    <h2>Создайте certificate template</h2>
+                    <p>Шаблон задает внешний вид сертификата и данные, которые будут подставляться при выдаче.</p>
+                </div>
+            </div>
+
+            <div class="content-block split">
+                <div>
+                    <ol class="ordered-list">
+                        <li>Откройте Navigation menu → Content and delivery → Certificates.</li>
+                        <li>Нажмите <strong>New certificate</strong>.</li>
+                        <li>Заполните code, name и description.</li>
+                        <li>Нажмите <strong>Confirm</strong>.</li>
+                        <li>Откройте Certificate template icon в строке шаблона, чтобы настроить макет.</li>
+                    </ol>
+                </div>
+                <div class="note">
+                    Code лучше задавать понятным и стабильным: например, по курсу, программе или типу сертификата.
+                    Это упростит поиск шаблона при привязке к курсам.
+                </div>
+            </div>
+        </section>
+
+        <section class="guide-section" id="layout">
+            <div class="section-heading">
+                <span class="step-number">3</span>
+                <div>
+                    <h2>Настройте макет, язык и динамические теги</h2>
+                    <p>В редакторе сертификата добавьте постоянный текст, изображения и теги, которые Docebo заполнит автоматически.</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <div class="columns">
+                    <div>
+                        <h3>Статический текст и изображения</h3>
+                        <p>
+                            Добавьте заголовок, текст подтверждения, подписи и логотип. Изображения нужно загружать в шаблон;
+                            внешние URL для изображений не поддерживаются.
+                        </p>
+                    </div>
+                    <div>
+                        <h3>Динамические теги</h3>
+                        <p>
+                            Используйте теги вроде <code>[firstname]</code>, <code>[lastname]</code>,
+                            <code>[course_name]</code>, <code>[date_complete]</code> и <code>[course_certificate_number]</code>.
+                            Вставляйте их как plain text, чтобы не занести лишнее форматирование.
+                        </p>
+                    </div>
+                    <div>
+                        <h3>Ориентация и язык</h3>
+                        <p>
+                            Выберите portrait или landscape и язык шаблона. Язык влияет на формат дат,
+                            которые выводятся через date-теги.
+                        </p>
+                    </div>
+                    <div>
+                        <h3>Фон</h3>
+                        <p>
+                            Если нужен фон, загрузите его до настройки HTML-текста. Рекомендуемые размеры:
+                            portrait 1810×2560 px, landscape 2560×1810 px. Максимум: 10 MB.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <figure class="screenshot">
+                <img loading="lazy" decoding="async" src="images/docebo-certificates-dynamic-tags.png" alt="Динамические теги сертификата в Docebo">
+                <figcaption>Dynamic tags: поля пользователя, курса, learning plan и другие данные для автоматической подстановки.</figcaption>
+            </figure>
+
+            <div class="shot-row">
+                <figure class="screenshot compact">
+                    <img loading="lazy" decoding="async" src="images/docebo-certificates-orientation-language.png" alt="Ориентация и язык сертификата в Docebo">
+                    <figcaption>Ориентация и язык шаблона.</figcaption>
+                </figure>
+
+                <figure class="screenshot compact">
+                    <img loading="lazy" decoding="async" src="images/docebo-certificates-background-image.png" alt="Загрузка фонового изображения сертификата в Docebo">
+                    <figcaption>Загрузка фонового изображения.</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section class="guide-section" id="course">
+            <div class="section-heading">
+                <span class="step-number">4</span>
+                <div>
+                    <h2>Привяжите сертификат к курсу</h2>
+                    <p>После привязки шаблона сертификат будет выдаваться пользователям, которые завершили курс.</p>
+                </div>
+            </div>
+
+            <div class="content-block split">
+                <div>
+                    <h3>Default certificate template</h3>
+                    <ol class="ordered-list">
+                        <li>Откройте Navigation menu → Content and delivery → Courses.</li>
+                        <li>Найдите курс и откройте его.</li>
+                        <li>Перейдите в Properties → Certificate templates.</li>
+                        <li>В поле Default certificate template нажмите плюс.</li>
+                        <li>Выберите шаблон и нажмите Select.</li>
+                        <li>Нажмите Save changes.</li>
+                    </ol>
+                </div>
+                <div class="warning">
+                    При привязке шаблона к курсу сертификат назначается retroactively всем пользователям,
+                    которые уже завершили этот курс и соответствуют условиям выдачи.
+                </div>
+            </div>
+
+            <div class="content-block split no-top">
+                <div>
+                    <h3>Additional certificate templates</h3>
+                    <p>
+                        Дополнительные шаблоны нужны, если разные branches или groups должны получать разные макеты.
+                        Можно назначить до 50 дополнительных шаблонов на курс.
+                    </p>
+                    <ul class="check-list">
+                        <li>Сначала должен быть выбран default template.</li>
+                        <li>Порядок шаблонов важен: Docebo использует первый подходящий шаблон.</li>
+                        <li>Если пользователь входит в несколько groups или branches, порядок решает, какой макет будет выдан.</li>
+                        <li>Можно разрешить получение до трех сертификатов с разными макетами после завершения курса.</li>
+                    </ul>
+                </div>
+                <div class="note">
+                    Если изменить порядок дополнительных шаблонов после выдачи, повторное скачивание может сформировать сертификат
+                    по новому первому подходящему шаблону.
+                </div>
+            </div>
+
+            <figure class="screenshot">
+                <img loading="lazy" decoding="async" src="images/docebo-certificates-additional-templates.png" alt="Дополнительные certificate templates для курса в Docebo">
+                <figcaption>Additional certificate templates: разные макеты для branches и groups.</figcaption>
+            </figure>
+        </section>
+
+        <section class="guide-section" id="learning-plan">
+            <div class="section-heading">
+                <span class="step-number">5</span>
+                <div>
+                    <h2>Привяжите сертификат к learning plan</h2>
+                    <p>Learning plan может иметь только один certificate template.</p>
+                </div>
+            </div>
+
+            <div class="content-block split">
+                <div>
+                    <ol class="ordered-list">
+                        <li>Откройте Navigation menu → Content and delivery → Learning plans.</li>
+                        <li>Найдите learning plan и выберите Edit.</li>
+                        <li>Во вкладке Properties найдите Certificate template.</li>
+                        <li>Нажмите плюс, выберите шаблон и подтвердите выбор.</li>
+                        <li>Сохраните изменения.</li>
+                    </ol>
+                </div>
+                <div class="danger">
+                    Если удалить связь между learning plan и сертификатом, пользователи, которые получили сертификат за этот learning plan,
+                    потеряют доступ к нему. Делайте это только после проверки последствий.
+                </div>
+            </div>
+
+            <div class="content-block no-top">
+                <p>
+                    Сертификат learning plan выдается только после завершения всех курсов внутри learning plan.
+                    Это правило действует даже если пользователь зачислен не на все курсы плана.
+                </p>
+            </div>
+        </section>
+
+        <section class="guide-section" id="issue-download">
+            <div class="section-heading">
+                <span class="step-number">6</span>
+                <div>
+                    <h2>Выдайте или скачайте сертификаты</h2>
+                    <p>После завершения связанного курса или learning plan сертификат появляется у learner автоматически.</p>
+                </div>
+            </div>
+
+            <div class="content-block columns">
+                <div>
+                    <h3>Как learner скачивает сертификат</h3>
+                    <p>
+                        После завершения обучения learner может скачать PDF из completion pop-up,
+                        с кнопки Download certificate в course или learning plan, а также из My activities или My transcript,
+                        если эти страницы доступны в меню.
+                    </p>
+                </div>
+                <div>
+                    <h3>Как admin скачивает выданный сертификат</h3>
+                    <p>
+                        Откройте Certificates, найдите нужный template и нажмите Issued certificates.
+                        Выберите course или learning plan, затем скачайте PDF в строке пользователя.
+                    </p>
+                </div>
+                <div>
+                    <h3>Ручная выдача</h3>
+                    <p>
+                        В окне Issued certificates выберите пользователей, откройте On selected и выберите Issue certificate.
+                        Действие применяется сразу после выбора.
+                    </p>
+                </div>
+                <div>
+                    <h3>Archived enrollments</h3>
+                    <p>
+                        Для archived course enrollments сертификат скачивается через Course → Enrollments →
+                        Enrollment type → Archived enrollments → Details → Download certificate.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="guide-section" id="update-delete">
+            <div class="section-heading">
+                <span class="step-number">7</span>
+                <div>
+                    <h2>Обновите, удалите или перевыпустите сертификаты</h2>
+                    <p>Изменение шаблона не меняет уже выданные сертификаты автоматически.</p>
+                </div>
+            </div>
+
+            <div class="content-block split">
+                <div>
+                    <h3>Как применить новый шаблон к уже выданному сертификату</h3>
+                    <ol class="ordered-list">
+                        <li>Обновите certificate template и сохраните изменения.</li>
+                        <li>Откройте Issued certificates для этого шаблона.</li>
+                        <li>Выберите нужного пользователя.</li>
+                        <li>Удалите ранее выданный сертификат через Delete all the issued certificates.</li>
+                        <li>Снова выберите пользователя и выполните Issue certificate.</li>
+                        <li>Скачайте PDF и проверьте результат.</li>
+                    </ol>
+                </div>
+                <div class="warning">
+                    Если пользователь все еще соответствует условиям получения сертификата, удаление из Certificates menu
+                    не всегда убирает возможность скачать сертификат из My activities или My transcript.
+                </div>
+            </div>
+        </section>
+
+        <section class="guide-section" id="checklist">
+            <div class="section-heading">
+                <span class="step-number">8</span>
+                <div>
+                    <h2>Проверьте перед запуском</h2>
+                    <p>Минимальный чеклист, чтобы сертификаты не пришлось массово перевыпускать.</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <ul class="check-list">
+                    <li>Шаблон открывается в preview и корректно выглядит в PDF.</li>
+                    <li>Фон загружен подходящего размера и не перекрывает текст.</li>
+                    <li>Все dynamic tags вставлены как plain text и корректно подставляют данные.</li>
+                    <li>Язык шаблона выбран правильно, особенно если используются date-теги.</li>
+                    <li>Курс или learning plan имеет нужный certificate template.</li>
+                    <li>Для курса с несколькими шаблонами проверен порядок branches/groups.</li>
+                    <li>На тестовом пользователе проверено завершение курса и скачивание сертификата.</li>
+                    <li>Если сертификат содержит scores, проверьте, как курс рассчитывает итоговый score.</li>
+                </ul>
+            </div>
+        </section>
+
+        <footer class="source-footer">
+            Источник Docebo Help:
+            <a href="https://help.docebo.com/hc/en-us/articles/360020084280-Creating-and-managing-certificates" target="_blank" rel="noopener noreferrer">Creating and managing certificates</a>.
+        </footer>
+    </main>
+</body>
+</html>
